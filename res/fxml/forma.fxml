@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import java.net.URL?>
-<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="419.0" vgap="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1"
-          fx:controller="ba.unsa.etf.rs.projekat.FormaController">
+<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="419.0" vgap="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.FormaController">
     <stylesheets>
         <URL value="@/css/forma.css" />
     </stylesheets>

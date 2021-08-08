@@ -5,6 +5,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.util.regex.Pattern;
+
 public class FormaController {
 
     public TextField nameField;
@@ -50,7 +52,7 @@ public class FormaController {
             }
         });
         emailField.textProperty().addListener((obs,staro,novo) -> {
-            if (novo.isEmpty() || !novo.contains("@")) {
+            if (novo.isEmpty() || !isEmailValid(novo)) {
                 emailField.getStyleClass().removeAll("poljeIspravno");
                 emailField.getStyleClass().add("poljeNijeIspravno");
             }
@@ -60,7 +62,7 @@ public class FormaController {
             }
         });
         passwordField.textProperty().addListener((obs,staro,novo) -> {
-            if (novo.isEmpty()) {
+            if (novo.isEmpty() || !isPasswordValid(novo)) {
                 passwordField.getStyleClass().removeAll("poljeIspravno");
                 passwordField.getStyleClass().add("poljeNijeIspravno");
             }
@@ -81,6 +83,48 @@ public class FormaController {
         });
 
 
+    }
+    private boolean isPasswordValid (String a ){
+        if (a.length() < 8) {
+            return false;
+        }
+
+        int brojac = 0;
+        for (int i = 0;i <a.length();i++) {
+            if (a.charAt(i) >='A' && a.charAt(i) <='Z') {
+                brojac++;
+                break;
+            }
+        }
+        for (int i = 0;i <a.length();i++) {
+            if (a.charAt(i) >='a' && a.charAt(i) <='z') {
+                brojac++;
+                break;
+            }
+        }
+        for (int i = 0;i <a.length();i++) {
+            if (Character.isDigit(a.charAt(i))) {
+                brojac++;
+                break;
+            }
+        }
+        if (brojac == 3 ) {
+            return true;
+        }
+        //potrebno je dodati provjeru za specijalni karakter
+        return false;
+    }
+
+    private boolean isEmailValid (String a) {
+        if (!a.contains("@")) {
+            return false;
+        }
+        for (int i = 0; i < a.length();i++) {
+            if (a.indexOf("@") == 0 || a.indexOf("@") == a.length()-1) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

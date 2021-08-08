@@ -6,11 +6,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="ba.unsa.etf.rs.projekat.MainController">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.MainController">
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bilješke s predavanja" BorderPane.alignment="CENTER">
          <font>
@@ -24,8 +24,8 @@ fx:controller="ba.unsa.etf.rs.projekat.MainController">
    <bottom>
       <ButtonBar prefHeight="86.0" prefWidth="704.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" prefHeight="97.0" prefWidth="415.0" onAction="#student" text="Student" />
-            <Button mnemonicParsing="false" prefHeight="91.0"  onAction="#srednjoskolac" text="Srednjoškolac" />
+          <Button mnemonicParsing="false" onAction="#student" prefHeight="97.0" prefWidth="415.0" text="Student" />
+            <Button mnemonicParsing="false" onAction="#srednjoskolac" prefHeight="91.0" text="Srednjoškolac" />
         </buttons>
       </ButtonBar>
    </bottom>
@@ -36,4 +36,16 @@ fx:controller="ba.unsa.etf.rs.projekat.MainController">
          </image>
       </ImageView>
    </center>
+   <right>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <buttons>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Log in" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#signAction" text="Sign up" />
+               </children>
+            </VBox>
+         </buttons>
+      </ButtonBar>
+   </right>
 </BorderPane>
