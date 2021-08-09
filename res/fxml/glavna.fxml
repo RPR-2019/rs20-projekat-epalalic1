@@ -41,7 +41,7 @@
          <buttons>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Log in" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logInAction" text="Log in" />
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#signAction" text="Sign up" />
                </children>
             </VBox>

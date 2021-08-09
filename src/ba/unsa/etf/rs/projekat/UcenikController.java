@@ -22,4 +22,14 @@ public class UcenikController {
         myStage.setResizable(false);
         myStage.show();
     }
+
+    public void logInAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LogIn.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Forma");
+        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.setResizable(false);
+        myStage.show();
+    }
 }

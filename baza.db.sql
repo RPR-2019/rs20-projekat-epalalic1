@@ -1,0 +1,18 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "status" (
+	"id"	INTEGER UNIQUE,
+	"naziv"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT),
+
+);
+CREATE TABLE IF NOT EXISTS "users" (
+	"id"	INTEGER UNIQUE,
+	"name"	TEXT,
+	"surname"	TEXT,
+	"username"	TEXT,
+	"email"	TEXT,
+	"password"	TEXT,
+	"status"	INTEGER,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+COMMIT;
