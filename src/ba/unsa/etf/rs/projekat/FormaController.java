@@ -1,5 +1,6 @@
 package ba.unsa.etf.rs.projekat;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
@@ -16,6 +17,7 @@ public class FormaController {
     public PasswordField passwordField;
     public PasswordField repeatField;
     public ChoiceBox<String> statusField;
+    private boolean name = false,surname = false,username = false,email = false, password = false;
 
 
     @FXML
@@ -25,50 +27,61 @@ public class FormaController {
             if (novo.isEmpty()) {
                 nameField.getStyleClass().removeAll("poljeIspravno");
                 nameField.getStyleClass().add("poljeNijeIspravno");
+                name = false;
             }
             else {
                 nameField.getStyleClass().removeAll("poljeNijeIspravno");
                 nameField.getStyleClass().add("poljeIspravno");
+                name = true;
             }
         });
         surnameField.textProperty().addListener((obs,staro,novo) -> {
             if (novo.isEmpty()) {
                 surnameField.getStyleClass().removeAll("poljeIspravno");
                 surnameField.getStyleClass().add("poljeNijeIspravno");
+                surname = false;
             }
             else {
                 surnameField.getStyleClass().removeAll("poljeNijeIspravno");
                 surnameField.getStyleClass().add("poljeIspravno");
+                surname = true;
             }
         });
         usernameField.textProperty().addListener((obs,staro,novo) -> {
             if (novo.isEmpty() || novo.length() < 6) {
                 usernameField.getStyleClass().removeAll("poljeIspravno");
                 usernameField.getStyleClass().add("poljeNijeIspravno");
+                username = false;
             }
             else {
                 usernameField.getStyleClass().removeAll("poljeNijeIspravno");
                 usernameField.getStyleClass().add("poljeIspravno");
+                username = true;
             }
+
         });
         emailField.textProperty().addListener((obs,staro,novo) -> {
             if (novo.isEmpty() || !isEmailValid(novo)) {
                 emailField.getStyleClass().removeAll("poljeIspravno");
                 emailField.getStyleClass().add("poljeNijeIspravno");
+                email = false;
             }
             else {
                 emailField.getStyleClass().removeAll("poljeNijeIspravno");
                 emailField.getStyleClass().add("poljeIspravno");
+                email = true;
             }
         });
         passwordField.textProperty().addListener((obs,staro,novo) -> {
             if (novo.isEmpty() || !isPasswordValid(novo)) {
                 passwordField.getStyleClass().removeAll("poljeIspravno");
                 passwordField.getStyleClass().add("poljeNijeIspravno");
+                password = false;
             }
             else {
                 passwordField.getStyleClass().removeAll("poljeNijeIspravno");
                 passwordField.getStyleClass().add("poljeIspravno");
+                password = true;
             }
         });
         repeatField.textProperty().addListener((obs,staro,novo) -> {
@@ -129,4 +142,18 @@ public class FormaController {
 
 
 
+
+    public void addUserAction(ActionEvent actionEvent) {
+            if (name && surname && username && email && password) {
+                NotesDAO a = NotesDAO.getInstance();
+                Status status = a.returnStatus(statusField.getValue());
+                Users users = new Users(nameField.getText(),surnameField.getText(),usernameField.getText(),
+                        emailField.getText(),passwordField.getText(),status);
+                a.addUser(users);
+                System.out.println("Uspjesno ste dodali korisnika");
+            }
+            else {
+
+            }
+    }
 }

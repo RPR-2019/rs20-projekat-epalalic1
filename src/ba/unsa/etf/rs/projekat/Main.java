@@ -19,9 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        NotesDAO a = NotesDAO.getInstance();
 
-
-        //Connection conn = DriverManager.getConnection("jdbc:sqlite:baza.db");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/glavna.fxml"));
         primaryStage.setTitle("Biljeske sa predavanja");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));

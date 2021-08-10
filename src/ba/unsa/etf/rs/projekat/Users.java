@@ -15,6 +15,15 @@ public class Users {
         this.status = status;
     }
 
+    public Users (String name, String surname, String username, String email,String password, Status status) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.status = status;
+    }
+
 
     public int getId() {
         return id;
