@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -11,7 +12,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<?import java.net.URL?>
 <GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="419.0" vgap="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.FormaController">
     <stylesheets>
         <URL value="@/css/forma.css" />
@@ -40,16 +40,16 @@
       <Label text="Status:" GridPane.rowIndex="6" />
       <TextField fx:id="nameField" GridPane.columnIndex="1" />
       <TextField fx:id="surnameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="usernameField" promptText="6 karaktera" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Ponovite sifru:" GridPane.rowIndex="5" />
-      <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <PasswordField fx:id="passwordField" promptText="8 karaktera,veliko i malo slovo , broj" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <PasswordField fx:id="repeatField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <ChoiceBox fx:id="statusField" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
         <buttons>
           <Button defaultButton="true" mnemonicParsing="false" onAction="#addUserAction" text="Ok" />
-            <Button cancelButton="true" mnemonicParsing="false" text="Cancel" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelAction" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>
