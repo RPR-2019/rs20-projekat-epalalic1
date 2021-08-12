@@ -19,7 +19,15 @@ public class main2Controller {
 
     @FXML
     public void initialize ()  {
-        user = MainController.getInstance().getUsers();
+
+
+
+        if (MainController.getInstance().getUsers()!=null) {
+            user = MainController.getInstance().getUsers();
+        }
+        else if (logInController.getInstance().getUser()!=null) {
+            user = logInController.getInstance().getUser();
+        }
         profileLabel.setText("Dobro dosao/la " + user.getUsername());
     }
 

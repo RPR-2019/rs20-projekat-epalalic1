@@ -9,7 +9,7 @@ public class NotesDAO {
     private static NotesDAO instance;
     private Connection conn;
 
-    private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus;
+    private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus,returnNameOfStatus ;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -73,6 +73,7 @@ public class NotesDAO {
             maxIdUser = conn.prepareStatement("SELECT MAX(id)+1 FROM users");
             checkIfUserExists = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
             returnStatus = conn.prepareStatement("SELECT * FROM status WHERE name = ?");
+            returnNameOfStatus = conn.prepareStatement("SELECT * FROM status WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -137,5 +138,42 @@ public class NotesDAO {
             e.printStackTrace();
         }
         return s;
+    }
+    public String returnNameOfStatus (int id) {
+        String a = null;
+        try {
+            returnNameOfStatus.setInt(1,id);
+            ResultSet rs = returnNameOfStatus.executeQuery();
+            while (rs.next()) {
+                a = rs.getString(2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return a;
+    }
+    public Users returnUser (String username, String password) {
+        Users user = null;
+        try {
+            checkIfUserExists.setString(1,username);
+            checkIfUserExists.setString(2,password);
+            ResultSet rs = checkIfUserExists.executeQuery();
+            int id = 0,status = 0;
+            String name = null,surname =null,email = null;
+            Status status1 = null;
+            if (rs.next()) {
+                id = rs.getInt(1);
+                name = rs.getString(2);
+                surname = rs.getString(3);
+                email = rs.getString(5);
+                status = rs.getInt(7);
+            }
+            status1 = new Status(status,returnNameOfStatus(status));
+            user = new Users(id,name,surname,username,email,password,status1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

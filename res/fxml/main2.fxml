@@ -11,8 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="ba.unsa.etf.rs.projekat.main2Controller">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.main2Controller">
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bilješke s predavanja" BorderPane.alignment="CENTER">
          <font>
@@ -45,7 +44,7 @@ fx:controller="ba.unsa.etf.rs.projekat.main2Controller">
                <children>
                   <Label fx:id="profileLabel" maxWidth="1.7976931348623157E308">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
                </children>
