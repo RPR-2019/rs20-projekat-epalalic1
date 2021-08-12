@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.regex.Pattern;
+import java.io.IOException;
 
 public class FormaController {
 
@@ -21,6 +21,10 @@ public class FormaController {
     public PasswordField repeatField;
     public ChoiceBox<String> statusField;
     private boolean name = false,surname = false,username = false,email = false, password = false,rpassword = false;
+    private Users users = null;
+
+    public FormaController () {
+    }
 
 
     @FXML
@@ -146,19 +150,23 @@ public class FormaController {
     }
 
 
+    public Users check () {
+        return users;
+    }
 
 
-    public void addUserAction(ActionEvent actionEvent) {
+    public void addUserAction(ActionEvent actionEvent) throws IOException {
             if (name && surname && username && email && password && rpassword) {
                 NotesDAO a = NotesDAO.getInstance();
                 Status status = a.returnStatus(statusField.getValue());
-                Users users = new Users(nameField.getText(),surnameField.getText(),usernameField.getText(),
+                users = new Users(nameField.getText(),surnameField.getText(),usernameField.getText(),
                         emailField.getText(),passwordField.getText(),status);
                 a.addUser(users);
-                System.out.println("Uspjesno ste dodali korisnika");
                 Node n = (Node) actionEvent.getSource();
                 Stage stage = (Stage) n.getScene().getWindow();
                 stage.close();
+
+
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -175,4 +183,6 @@ public class FormaController {
         Stage stage = (Stage) n.getScene().getWindow();
         stage.close();
     }
+
+
 }

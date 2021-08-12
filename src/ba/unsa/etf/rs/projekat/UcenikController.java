@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class UcenikController {
 
+
+    public Button buttonHelp;
 
     public void signup(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
