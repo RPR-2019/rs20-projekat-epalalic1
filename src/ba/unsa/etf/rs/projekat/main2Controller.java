@@ -20,21 +20,21 @@ public class main2Controller {
     @FXML
     public void initialize ()  {
 
-
-
+        FormaController a = new FormaController();
         if (MainController.getInstance().getUsers()!=null) {
             user = MainController.getInstance().getUsers();
         }
         else if (logInController.getInstance().getUser()!=null) {
             user = logInController.getInstance().getUser();
         }
+        else if (a.check()!=null) {
+            user = a.check();
+        }
         profileLabel.setText("Dobro dosao/la " + user.getUsername());
     }
 
     public void student(ActionEvent actionEvent) throws IOException {
-        //ovdje ovo ne treba jer sad se korisnik logovao i potrebno je izmijeniti prozore student i srednjoskolac
-        //jer sad umjesto dugmica log in i sign in treba da pise dodaj biljesku  ili slicno
-        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/student.fxml"));
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/logedInH.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         //stage.hide();
@@ -43,11 +43,13 @@ public class main2Controller {
     }
 
     public void srednjoskolac(ActionEvent actionEvent) throws IOException {
-        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/srednjoskolac.fxml"));
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/logedInH.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         //stage.hide();
         stage.setScene(scene);
         stage.show();
     }
+
+
 }

@@ -2,9 +2,11 @@ package ba.unsa.etf.rs.projekat;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PopupControl;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,18 +14,41 @@ import java.io.IOException;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class UcenikController {
-
+    public static UcenikController instance;
+    public UcenikController () {
+        instance = this;
+    }
+    public static UcenikController  getInstance() {
+        return instance;
+    }
+    Users users = null;
 
     public Button buttonHelp;
 
     public void signup(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
-        Parent root = (Parent) loader.load();
+        FormaController a = new FormaController();
         Stage myStage = new Stage();
-        myStage.setTitle("Forma");
-        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
+        loader.setController(a);
+        Parent root = loader.load();
+        myStage.setTitle("Novi prozor");
+        myStage.setScene(new Scene(root, PopupControl.USE_COMPUTED_SIZE, PopupControl.USE_COMPUTED_SIZE));
         myStage.setResizable(false);
-        myStage.show();
+        myStage.showAndWait();
+        if (!myStage.isShowing()) {
+            if (a.check()!=null) {
+                users = a.check();
+                Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/main2.fxml"));
+                Scene scene = new Scene(homePage);
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                //stage.hide();
+                stage.setScene(scene);
+                stage.show();
+
+            }
+        }
+
+
     }
 
     public void logInAction(ActionEvent actionEvent) throws IOException {
@@ -35,4 +60,6 @@ public class UcenikController {
         myStage.setResizable(false);
         myStage.show();
     }
+
+
 }
