@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
 public class ucenik2Controller {
     public Button buttonNote;
 
@@ -21,5 +23,14 @@ public class ucenik2Controller {
         //stage.hide();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void addNoteAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newNote.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Forma");
+        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.show();
     }
 }
