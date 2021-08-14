@@ -1,5 +1,8 @@
 package ba.unsa.etf.rs.projekat;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -9,7 +12,8 @@ public class NotesDAO {
     private static NotesDAO instance;
     private Connection conn;
 
-    private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus,returnNameOfStatus ;
+    private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus,returnNameOfStatus,returnAllType,
+    returnSubjectsWithSpecType,addNote,maxIdOfNote;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -74,6 +78,11 @@ public class NotesDAO {
             checkIfUserExists = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
             returnStatus = conn.prepareStatement("SELECT * FROM status WHERE name = ?");
             returnNameOfStatus = conn.prepareStatement("SELECT * FROM status WHERE id = ?");
+            returnAllType = conn.prepareStatement("SELECT * FROM type");
+            returnSubjectsWithSpecType = conn.prepareStatement("SELECT * FROM subjects where type = ?");
+            addNote = conn.prepareStatement("INSERT INTO notes VALUES(?,?,?,?,?,?)");
+            maxIdOfNote = conn.prepareStatement("SELECT MAX(id)+1 FROM notes");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,4 +185,60 @@ public class NotesDAO {
         }
         return user;
     }
+    public ObservableList<Type> returnAllType () {
+        ObservableList<Type> list = FXCollections.observableArrayList();
+        try {
+            ResultSet rs = returnAllType.executeQuery();
+            while (rs.next()) {
+                Type a = new Type(rs.getInt(1),rs.getString(2));
+                list.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  list;
+    }
+    public ObservableList<Subjects> returnSubjectsWithSpecType (Type type) {
+        ObservableList<Subjects> list = FXCollections.observableArrayList();
+        try {
+            returnSubjectsWithSpecType.setInt(1, type.getId());
+            ResultSet rs = returnSubjectsWithSpecType.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                Subjects subjects = new Subjects(id,name,type);
+                list.add(subjects);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public void addNote (Notes notes) {
+        ResultSet rs = null;
+        try {
+            rs = maxIdOfNote.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+                if (id == 0) {
+                    id = 1;
+                }
+            }
+            addNote.setInt(1,id);
+            addNote.setString(2, notes.getText());
+            addNote.setString(3,notes.getName());
+            addNote.setInt(4,notes.getSubjects().getId());
+            addNote.setInt(5,notes.getUsers().getId());
+            addNote.setInt(6,notes.getSort());
+            addNote.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

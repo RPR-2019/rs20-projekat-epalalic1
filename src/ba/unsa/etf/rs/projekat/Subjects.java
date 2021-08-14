@@ -34,4 +34,9 @@ public class Subjects {
     public void setType(Type type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

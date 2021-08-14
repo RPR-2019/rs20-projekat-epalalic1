@@ -1,17 +1,26 @@
 package ba.unsa.etf.rs.projekat;
 
 public class Notes {
-    private int id;
-    private String name;
+    private int id,sort;
+    private String name,text;
     private Subjects subjects;
     private Users users;
 
 
-    public  Notes (int id, String name, Subjects subjects, Users users) {
+    public  Notes (int id, String text, String name, Subjects subjects, Users users,int sort) {
         this.id = id;
+        this.text = text;
         this.name = name;
         this.subjects = subjects;
         this.users = users;
+        this.sort = sort;
+    }
+    public  Notes ( String text, String name, Subjects subjects, Users users,int sort) {
+        this.text = text;
+        this.name = name;
+        this.subjects = subjects;
+        this.users = users;
+        this.sort = sort;
     }
 
     public int getId() {
@@ -30,6 +39,14 @@ public class Notes {
         this.name = name;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public Subjects getSubjects() {
         return subjects;
     }
@@ -44,6 +61,14 @@ public class Notes {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 }
 

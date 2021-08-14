@@ -14,6 +14,13 @@ import java.io.IOException;
 public class main2Controller {
 
     public Label profileLabel;
+    public static main2Controller instance;
+    public main2Controller () {
+        instance = this;
+    }
+    public static main2Controller  getInstance() {
+        return instance;
+    }
 
     Users user  = null;
 
@@ -51,5 +58,11 @@ public class main2Controller {
         stage.show();
     }
 
+    public Users getUser() {
+        return user;
+    }
 
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

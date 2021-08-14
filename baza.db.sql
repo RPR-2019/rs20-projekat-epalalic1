@@ -29,9 +29,11 @@ CREATE TABLE IF NOT EXISTS "subjects" (
 );
 CREATE TABLE IF NOT EXISTS "notes" (
 	"id"	INTEGER UNIQUE,
+	"text" TEXT,
 	"name"	TEXT,
 	"subject"	INTEGER,
 	"user"	INTEGER,
+	"sort" INTEGER,
 	FOREIGN KEY("subject") REFERENCES "subjects"("id"),
 	FOREIGN KEY("user") REFERENCES "users"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
