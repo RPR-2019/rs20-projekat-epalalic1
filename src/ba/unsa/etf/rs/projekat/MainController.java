@@ -23,6 +23,7 @@ public class MainController {
     public Button proba;
     public Button buttonId;
     public Label profileLabel;
+    public Button buttonId2;
     @FXML
     private BorderPane pane;
     @FXML

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NotesDAO {
@@ -13,7 +14,8 @@ public class NotesDAO {
     private Connection conn;
 
     private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus,returnNameOfStatus,returnAllType,
-    returnSubjectsWithSpecType,addNote,maxIdOfNote;
+    returnSubjectsWithSpecType,addNote,maxIdOfNote,allNotesForSchool,returnSubject,returnUser,returnType,returnStatus1,
+    retrunAllNotes;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -82,7 +84,13 @@ public class NotesDAO {
             returnSubjectsWithSpecType = conn.prepareStatement("SELECT * FROM subjects where type = ?");
             addNote = conn.prepareStatement("INSERT INTO notes VALUES(?,?,?,?,?,?)");
             maxIdOfNote = conn.prepareStatement("SELECT MAX(id)+1 FROM notes");
-
+            allNotesForSchool = conn.prepareStatement("SELECT * FROM (notes INNER JOIN subjects ON " +
+                    "notes.subject = subjects.id ) INNER JOIN type ON subjects.type = type.id WHERE type.id = 1");
+            returnSubject = conn.prepareStatement("SELECT * FROM subjects WHERE id = ?");
+            returnUser = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
+            returnType = conn.prepareStatement("SELECT * FROM type WHERE id = ?");
+            returnStatus1 = conn.prepareStatement("SELECT * FROM status WHERE id = ?");
+            retrunAllNotes  = conn.prepareStatement("SELECT * FROM notes");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -239,6 +247,108 @@ public class NotesDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public  Subjects returnSubjects (int id) {
+        Subjects subjects = null;
+        try {
+            returnSubject.setInt(1,id);
+            ResultSet rs = returnSubject.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                int type = rs.getInt(3);
+                returnType.setInt(1,type);
+                ResultSet rs1 = returnType.executeQuery();
+                Type type1 = null;
+                while (rs1.next()) {
+                    String name1 = rs1.getString(2);
+                    type1 = new Type(type,name1);
+                }
+                subjects = new Subjects(id,name,type1);
+
+
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return subjects;
+    }
+    public Users returnUser (int id) {
+        Users users = null;
+        try {
+            returnUser.setInt(1,id);
+            ResultSet rs = returnUser.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                String surname = rs.getString(3);
+                String username = rs.getString(4);
+                String email = rs.getString(5);
+                String password = rs.getString(6);
+                int status = rs.getInt(7);
+                returnStatus1.setInt(1,status);
+                ResultSet rs1 = returnStatus1.executeQuery();
+                Status status1 = null;
+                while (rs1.next()) {
+                    String name1 = rs1.getString(2);
+                    status1 = new Status(status,name1);
+                }
+                users = new Users(id,name,surname,username,email,password,status1);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return users;
+    }
+
+
+    public ObservableList<Notes>  allNotesForSchool () {
+        ObservableList<Notes> a = FXCollections.observableArrayList();
+        try {
+            ResultSet rs = allNotesForSchool.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String text = rs.getString(2);
+                String name = rs.getString(3);
+                int subject = rs.getInt(4);
+                int user = rs.getInt(5);
+                int sort = rs.getInt(6);
+                Users users = returnUser(user);
+                Subjects subjects = returnSubjects(subject);
+                Notes notes = new Notes(id,text,name,subjects,users,sort);
+                a.add(notes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return a;
+    }
+    public ObservableList<Notes> returnAllNotes () {
+        ObservableList<Notes> a = FXCollections.observableArrayList();
+        try {
+            ResultSet rs = retrunAllNotes.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String text = rs.getString(2);
+                String name = rs.getString(3);
+                int subject = rs.getInt(4);
+                int user = rs.getInt(5);
+                int sort = rs.getInt(6);
+                Users users = returnUser(user);
+                Subjects subjects = returnSubjects(subject);
+                Notes notes = new Notes(id,text,name,subjects,users,sort);
+                a.add(notes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return a;
     }
 
 }

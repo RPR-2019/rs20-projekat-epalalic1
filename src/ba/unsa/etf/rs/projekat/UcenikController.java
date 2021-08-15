@@ -1,12 +1,12 @@
 package ba.unsa.etf.rs.projekat;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PopupControl;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +15,11 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class UcenikController {
     public static UcenikController instance;
+    public TextField searchNote;
+    public ListView<Notes> resultOfSearch;
+    public ComboBox<Subjects> chooseSubject;
+    public ComboBox<String> chooseTopic;
+
     public UcenikController () {
         instance = this;
     }
@@ -24,6 +29,14 @@ public class UcenikController {
     Users users = null;
 
     public Button buttonHelp;
+
+    @FXML
+    public void initialize () {
+
+    }
+
+
+
 
     public void signup(ActionEvent actionEvent) throws IOException {
         FormaController a = new FormaController();
@@ -62,4 +75,7 @@ public class UcenikController {
     }
 
 
+    public void searchAction(ActionEvent actionEvent) {
+
+    }
 }

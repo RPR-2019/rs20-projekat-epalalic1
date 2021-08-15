@@ -33,7 +33,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
         <buttons>
           <Button mnemonicParsing="false" onAction="#addNoteAction" text="Spremi biljesku" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Provjeri" />
+            <Button mnemonicParsing="false" onAction="#previewAction" prefHeight="25.0" prefWidth="133.0" text="Provjeri" />
             <Button mnemonicParsing="false" onAction="#closeNewNote" text="Izadji" />
         </buttons>
       </ButtonBar>

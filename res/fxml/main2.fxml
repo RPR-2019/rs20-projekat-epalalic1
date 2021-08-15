@@ -25,8 +25,8 @@
    <bottom>
       <ButtonBar prefHeight="86.0" prefWidth="704.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#student" prefHeight="97.0" prefWidth="415.0" text="Student" />
-            <Button mnemonicParsing="false" onAction="#srednjoskolac" prefHeight="91.0" text="Srednjoškolac" />
+          <Button mnemonicParsing="false" fx:id="studentBtn" onAction="#student" prefHeight="97.0" prefWidth="415.0" text="Student" />
+            <Button mnemonicParsing="false" fx:id="ucenikBtn" onAction="#srednjoskolac" prefHeight="91.0" text="Srednjoškolac" />
         </buttons>
       </ButtonBar>
    </bottom>

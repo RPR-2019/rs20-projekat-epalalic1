@@ -70,5 +70,10 @@ public class Notes {
     public void setSort(int sort) {
         this.sort = sort;
     }
+
+    @Override
+    public String toString () {
+        return name;
+    }
 }
 

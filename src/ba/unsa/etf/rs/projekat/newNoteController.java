@@ -2,12 +2,19 @@ package ba.unsa.etf.rs.projekat;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class newNoteController {
     public TextArea textFld;
@@ -17,6 +24,15 @@ public class newNoteController {
     public CheckBox sortOfNote;
     private boolean nameofNoteCheck = false;
     private int selected = 0;
+    public static newNoteController instance;
+    public newNoteController () {
+        instance = this;
+    }
+    public static newNoteController getInstance() {
+        return instance;
+    }
+
+    public Notes notes = null;
 
 
     @FXML
@@ -58,10 +74,27 @@ public class newNoteController {
 
     public void addNoteAction(ActionEvent actionEvent) {
         if (nameofNoteCheck) {
-            Notes notes = new Notes(textFld.getText(),nameOfNote.getText(),chooseSubject.getValue(),
+             notes = new Notes(textFld.getText(),nameOfNote.getText(),chooseSubject.getValue(),
                     main2Controller.getInstance().getUser(), selected);
             NotesDAO.getInstance().addNote(notes);
             System.out.println("Uspjesno ste dodali biljesku");
         }
+    }
+
+    public void previewAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/previewNote.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Forma");
+        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.show();
+    }
+
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Notes notes) {
+        this.notes = notes;
     }
 }

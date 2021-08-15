@@ -41,9 +41,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="searchNote" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"  onAction="#logInAction" text="Log in" GridPane.columnIndex="2">
+      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logInAction" text="Log in" GridPane.columnIndex="2">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
@@ -56,10 +56,11 @@
       </Label>
       <Label GridPane.rowIndex="5" />
       <Button fx:id="buttonHelp" mnemonicParsing="false" text="Klikni za pomoc" GridPane.rowIndex="5" />
-      <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <ComboBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+      <ListView fx:id="resultOfSearch" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <ComboBox fx:id="chooseSubject" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
       <Label text="Rezultati pretrage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <ComboBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="chooseTopic" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#searchAction" text="Pretrazi" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
