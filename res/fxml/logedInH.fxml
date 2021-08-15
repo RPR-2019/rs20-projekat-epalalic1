@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -54,7 +56,6 @@
       </Label>
       <Label GridPane.rowIndex="5" />
       <Button fx:id="buttonHelp" mnemonicParsing="false" text="Klikni za pomoc" GridPane.rowIndex="5" />
-      <ListView fx:id="resutOfSearch" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <ComboBox fx:id="chooseSubject" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
       <Label text="Rezultati pretrage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <ComboBox fx:id="chooseTopic" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -79,6 +80,13 @@
          </children>
       </VBox>
       <Button mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="61.0" text="Pretrazi" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TableView fx:id="resultOfSearch" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <columns>
+          <TableColumn fx:id="topicColumn" prefWidth="75.0" text="Tema" />
+          <TableColumn fx:id="subjectColumn" prefWidth="75.0" text="Predmet" />
+            <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Autor" />
+        </columns>
+      </TableView>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

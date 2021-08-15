@@ -1,15 +1,14 @@
 package ba.unsa.etf.rs.projekat;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,9 +19,13 @@ public class ucenik2Controller {
     public Button buttonNote;
     public TextField searchNote;
     public Button buttonHelp;
-    public ListView<Notes> resutOfSearch;
     public ComboBox<Subjects> chooseSubject;
     public ComboBox<Notes> chooseTopic;
+    public TableView<Notes> resultOfSearch;
+    public TableColumn<Notes,String> topicColumn;
+    public TableColumn<Notes , String> subjectColumn;
+    public TableColumn<Notes, String> authorColumn;
+    private boolean subject = false, topic = false,tekstFld = false;
 
     @FXML
     public void initialize () {
@@ -31,7 +34,24 @@ public class ucenik2Controller {
             NotesDAO a = NotesDAO.getInstance();
             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
             chooseTopic.setItems(a.allNotesForSchool());
-            resutOfSearch.getItems().setAll(a.returnAllNotes());
+            topicColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            subjectColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
+                    () -> cellData.getValue().getSubjects().getName()
+            ));
+            authorColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
+                    () -> cellData.getValue().getUsers().getUsername()
+            ));
+            resultOfSearch.getItems().setAll(a.allNotesForSchool());
+            chooseSubject.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+                if (chooseSubject.getValue()!=null) {
+                    subject = true;
+                }
+            });
+            chooseTopic.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+                if (chooseTopic.getValue()!=null) {
+                    topic = true;
+                }
+            });
         }
     }
 
@@ -54,11 +74,22 @@ public class ucenik2Controller {
         myStage.show();
         if (!myStage.isShowing()) {
             if (newNoteController.getInstance().getNotes()!=null) {
-                resutOfSearch.getItems().add(newNoteController.getInstance().getNotes());
+                resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());
             }
         }
     }
 
     public void searchAction(ActionEvent actionEvent) {
+        NotesDAO dao = NotesDAO.getInstance();
+        if (subject && !topic) {
+            resultOfSearch.setItems(dao.returnNotesBySubject(chooseSubject.getValue().getId()));
+        }
+        else if (!subject && topic) {
+            resultOfSearch.setItems(dao.returnNotesByTopic(chooseTopic.getValue().getName()));
+        }
+        else  {
+           resultOfSearch.setItems(dao.returnNotesBySubjectAndNote(chooseSubject.getValue().getId(), chooseTopic.getValue().getName()));
+        }
+
     }
 }
