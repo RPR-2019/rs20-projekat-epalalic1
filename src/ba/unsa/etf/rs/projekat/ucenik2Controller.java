@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -26,6 +27,15 @@ public class ucenik2Controller {
     public TableColumn<Notes , String> subjectColumn;
     public TableColumn<Notes, String> authorColumn;
     private boolean subject = false, topic = false,tekstFld = false;
+
+    Notes notes = null;
+    public static ucenik2Controller instance;
+    public ucenik2Controller () {
+        instance = this;
+    }
+    public static ucenik2Controller getInstance() {
+        return instance;
+    }
 
     @FXML
     public void initialize () {
@@ -52,6 +62,22 @@ public class ucenik2Controller {
                     topic = true;
                 }
             });
+            resultOfSearch.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+                if (novo!=null) {
+                    notes = novo;
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/note.fxml"));
+                    Parent root = null;
+                    try {
+                        root = (Parent) loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage myStage = new Stage();
+                    myStage.setTitle("Forma");
+                    myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                    myStage.show();
+                }
+            });
         }
     }
 
@@ -59,8 +85,6 @@ public class ucenik2Controller {
         Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/srednjoskolac.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) buttonNote.getScene().getWindow();
-        //Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        //stage.hide();
         stage.setScene(scene);
         stage.show();
     }
