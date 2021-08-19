@@ -95,7 +95,7 @@ public class ucenik2Controller {
         Stage myStage = new Stage();
         myStage.setTitle("Forma");
         myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        myStage.show();
+        myStage.showAndWait();
         if (!myStage.isShowing()) {
             if (newNoteController.getInstance().getNotes()!=null) {
                 resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());

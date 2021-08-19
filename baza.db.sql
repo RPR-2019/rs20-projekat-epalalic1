@@ -38,6 +38,14 @@ CREATE TABLE IF NOT EXISTS "notes" (
 	FOREIGN KEY("user") REFERENCES "users"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
+CREATE TABLE IF NOT EXISTS "referencess" (
+	"id"	INTEGER UNIQUE,
+	"comment" TEXT,
+	"rate"	INTEGER,
+	"note" INTEGER,
+	FOREIGN KEY("note") REFERENCES "notes"("id"),
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
 INSERT INTO "status" VALUES (1,'Ucenik');
 INSERT INTO "status" VALUES (2,'Student');
 INSERT INTO "status" VALUES (3,'Nijedno');
