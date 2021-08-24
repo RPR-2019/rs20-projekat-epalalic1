@@ -15,10 +15,16 @@ public class NoteController {
 
     @FXML
     public void initialize () {
+       SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,5,0);
+       spinnerFld.setValueFactory(valueFactory);
         NotesDAO dao = NotesDAO.getInstance();
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 5,0);
-        spinnerFld.setValueFactory(valueFactory);
-        notes = ucenik2Controller.getInstance().notes;
+        if (ucenik2Controller.getInstance().notes !=null ){
+            notes = ucenik2Controller.getInstance().notes;
+        }
+        else {
+            notes = UcenikController.getInstance().notes;
+        }
+
         textFld.setText(notes.getText());
         authorFld.setText(notes.getUsers().getUsername());
         int velicina = dao.returnAllReferences(notes.getId()).size();
@@ -29,6 +35,7 @@ public class NoteController {
             }
             rateFld.setText(String.valueOf(suma/velicina));
         }
+
 
         listOfComments.setItems(dao.returnAllReferences(notes.getId()));
 

@@ -40,7 +40,8 @@ public class UcenikController {
     @FXML
     public void initialize () {
         MainController dao = MainController.getInstance();
-        if (dao.buttonId2.isArmed()) {
+        ucenik2Controller dao1 = ucenik2Controller.getInstance();
+        if (dao.buttonId2.isArmed() || dao1.getBrojac()!=0) {
             Type type = new Type(1,"srednja");
             NotesDAO a = NotesDAO.getInstance();
             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
@@ -66,7 +67,7 @@ public class UcenikController {
             resultOfSearch.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
                 if (novo!=null) {
                     notes = novo;
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/note.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/note2.fxml"));
                     Parent root = null;
                     try {
                         root = (Parent) loader.load();

@@ -59,14 +59,14 @@
       <ComboBox fx:id="chooseSubject" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
       <Label text="Rezultati pretrage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <ComboBox fx:id="chooseTopic" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <MenuButton alignment="BASELINE_LEFT" mnemonicParsing="false" text="Profil" GridPane.columnIndex="2">
+      <MenuButton fx:id="menuItem" alignment="BASELINE_LEFT" mnemonicParsing="false" text="Profil" GridPane.columnIndex="2">
         <items>
-          <MenuItem text="P_ogledaj profil">
+          <MenuItem onAction="#seeProfile" text="P_ogledaj profil">
                <accelerator>
                   <KeyCodeCombination alt="UP" code="P" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                </accelerator>
             </MenuItem>
-            <MenuItem onAction="#logOutAction" text="O_djavi se">
+            <MenuItem fx:id="logOutBtn" onAction="#logOutAction" text="O_djavi se">
                <accelerator>
                   <KeyCodeCombination alt="UP" code="O" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                </accelerator>

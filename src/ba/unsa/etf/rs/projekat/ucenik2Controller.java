@@ -26,8 +26,10 @@ public class ucenik2Controller {
     public TableColumn<Notes,String> topicColumn;
     public TableColumn<Notes , String> subjectColumn;
     public TableColumn<Notes, String> authorColumn;
+    public MenuItem logOutBtn;
+    public MenuButton menuItem;
     private boolean subject = false, topic = false,tekstFld = false;
-
+    private int brojac = 0;
     Notes notes = null;
     public static ucenik2Controller instance;
     public ucenik2Controller () {
@@ -82,11 +84,17 @@ public class ucenik2Controller {
     }
 
     public void logOutAction(ActionEvent actionEvent) throws IOException {
+        brojac++;
         Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/srednjoskolac.fxml"));
+        Scene scene = new Scene(homePage);
+        Stage stage = (Stage) buttonHelp.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+       /* Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/srednjoskolac.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) buttonNote.getScene().getWindow();
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
     }
 
     public void addNoteAction(ActionEvent actionEvent) throws IOException {
@@ -98,7 +106,9 @@ public class ucenik2Controller {
         myStage.showAndWait();
         if (!myStage.isShowing()) {
             if (newNoteController.getInstance().getNotes()!=null) {
-                resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());
+                if (newNoteController.getInstance().getNotes().getSort()!=0) {
+                    resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());
+                }
             }
         }
     }
@@ -115,5 +125,21 @@ public class ucenik2Controller {
            resultOfSearch.setItems(dao.returnNotesBySubjectAndNote(chooseSubject.getValue().getId(), chooseTopic.getValue().getName()));
         }
 
+    }
+
+    public int getBrojac() {
+        return brojac;
+    }
+
+    public void setBrojac(int brojac) {
+        this.brojac = brojac;
+    }
+
+    public void seeProfile(ActionEvent actionEvent) throws IOException {
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/profile.fxml"));
+        Scene scene = new Scene(homePage);
+        Stage stage = (Stage) buttonHelp.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

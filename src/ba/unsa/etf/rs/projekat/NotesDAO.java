@@ -16,7 +16,7 @@ public class NotesDAO {
     private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus,returnNameOfStatus,returnAllType,
     returnSubjectsWithSpecType,addNote,maxIdOfNote,allNotesForSchool,returnSubject,returnUser,returnType,returnStatus1,
     retrunAllNotes, searchNoteBySubject,searchNoteByTopic,searchNoteBySubjectAndTopic, addReference, maxIdOfReference,
-    returnAllReferencesForSpecNote, returnNoteById, proba;
+    returnAllReferencesForSpecNote, returnNoteById, returnNotesByUser,deleteNote, editNote,deleteReferences;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -86,7 +86,7 @@ public class NotesDAO {
             addNote = conn.prepareStatement("INSERT INTO notes VALUES(?,?,?,?,?,?)");
             maxIdOfNote = conn.prepareStatement("SELECT MAX(id)+1 FROM notes");
             allNotesForSchool = conn.prepareStatement("SELECT * FROM (notes INNER JOIN subjects ON " +
-                    "notes.subject = subjects.id ) INNER JOIN type ON subjects.type = type.id WHERE type.id = 1");
+                    "notes.subject = subjects.id ) INNER JOIN type ON subjects.type = type.id WHERE type.id = 1 AND notes.sort = 1");
             returnSubject = conn.prepareStatement("SELECT * FROM subjects WHERE id = ?");
             returnUser = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
             returnType = conn.prepareStatement("SELECT * FROM type WHERE id = ?");
@@ -101,6 +101,11 @@ public class NotesDAO {
             maxIdOfReference = conn.prepareStatement("SELECT MAX(id)+1 FROM referencess");
             returnAllReferencesForSpecNote = conn.prepareStatement("SELECT * FROM referencess WHERE note = ?");
             returnNoteById = conn.prepareStatement("SELECT * FROM notes WHERE id = ?");
+            returnNotesByUser = conn.prepareStatement("SELECT * FROM notes WHERE user = ?");
+            deleteNote = conn.prepareStatement("DELETE FROM notes WHERE id = ?");
+            editNote = conn.prepareStatement("UPDATE notes SET text = ?, name = ?, subject = ?, user = ?, sort = ? " +
+                    "WHERE id = ? ");
+            deleteReferences = conn.prepareStatement("DELETE FROM referencess WHERE note = ?");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -495,5 +500,56 @@ public class NotesDAO {
         }
 
         return a;
+    }
+    public ObservableList<Notes> returnAllNotesByUser (int id) {
+        ObservableList<Notes> a = FXCollections.observableArrayList();
+        try {
+            returnNotesByUser.setInt(1,id);
+            ResultSet rs = returnNotesByUser.executeQuery();
+            while (rs.next()) {
+                int id1 = rs.getInt(1);
+                String text = rs.getString(2);
+                String name = rs.getString(3);
+                int sub = rs.getInt(4);
+                int sort = rs.getInt(6);
+                Subjects subjects = returnSubjects(sub);
+                Users users = returnUser(id);
+                Notes notes = new Notes(id1,text,name,subjects,users,sort);
+                a.add(notes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a;
+    }
+    public void deleteNote (int id) {
+        try {
+            deleteNote.setInt(1,id);
+            deleteNote.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void editNote (Notes notes) {
+        try {
+            editNote.setString(1,notes.getText());
+            editNote.setString(2,notes.getName());
+            editNote.setInt(3,notes.getSubjects().getId());
+            editNote.setInt(4,notes.getUsers().getId());
+            editNote.setInt(5,notes.getSort());
+            editNote.setInt(6,notes.getId());
+            editNote.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteReferenes (int id) {
+        try {
+            deleteReferences.setInt(1,id);
+            deleteReferences.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
