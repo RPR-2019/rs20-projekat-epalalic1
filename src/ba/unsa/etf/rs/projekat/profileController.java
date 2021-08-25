@@ -2,8 +2,17 @@ package ba.unsa.etf.rs.projekat;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.lang.reflect.AnnotatedWildcardType;
+
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class profileController {
     public Label nameLabel;
@@ -12,6 +21,14 @@ public class profileController {
     public ListView<Notes> listOfNotes;
     Users users = null;
     Notes notes = null;
+
+    public static profileController instance;
+    public profileController() {
+        instance = this;
+    }
+    public static profileController getInstance() {
+        return instance;
+    }
 
     @FXML
     public void initialize () {
@@ -30,8 +47,21 @@ public class profileController {
 
     }
 
-    public void editNote(ActionEvent actionEvent) {
-
+    public void editNote(ActionEvent actionEvent) throws IOException {
+        editController a = new editController(notes);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editNote.fxml"));
+        loader.setController(a);
+        Parent root = loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Forma");
+        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.showAndWait();
+        if (!myStage.isShowing()) {
+            if (a.getNotes()!=null) {
+                listOfNotes.getItems().removeAll();
+                listOfNotes.getItems().setAll(NotesDAO.getInstance().returnAllNotesByUser(notes.getUsers().getId()));
+            }
+        }
     }
 
     public void deleteNote(ActionEvent actionEvent) {
@@ -39,5 +69,13 @@ public class profileController {
         dao.deleteNote(notes.getId());
         dao.deleteReferenes(notes.getId());
         listOfNotes.getItems().remove(notes);
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

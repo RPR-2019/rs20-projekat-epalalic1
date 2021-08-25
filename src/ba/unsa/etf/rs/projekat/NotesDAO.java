@@ -17,7 +17,7 @@ public class NotesDAO {
     returnSubjectsWithSpecType,addNote,maxIdOfNote,allNotesForSchool,returnSubject,returnUser,returnType,returnStatus1,
     retrunAllNotes, searchNoteBySubject,searchNoteByTopic,searchNoteBySubjectAndTopic, addReference, maxIdOfReference,
     returnAllReferencesForSpecNote, returnNoteById, returnNotesByUser,deleteNote, editNote,deleteReferences,
-    returnSubjectByName;
+    returnSubjectByName,allNotesForCollege;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -108,6 +108,8 @@ public class NotesDAO {
                     "WHERE id = ? ");
             deleteReferences = conn.prepareStatement("DELETE FROM referencess WHERE note = ?");
             returnSubjectByName = conn.prepareStatement("SELECT * FROM subjects WHERE name = ?");
+            allNotesForCollege = conn.prepareStatement("SELECT * FROM (notes INNER JOIN subjects ON " +
+                    "notes.subject = subjects.id ) INNER JOIN type ON subjects.type = type.id WHERE type.id = 2 AND notes.sort = 1");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -535,6 +537,7 @@ public class NotesDAO {
     }
     public void editNote (Notes notes) {
         try {
+            System.out.println(notes.getId() + " " + notes.getName());
             editNote.setString(1,notes.getText());
             editNote.setString(2,notes.getName());
             editNote.setInt(3,notes.getSubjects().getId());
@@ -586,4 +589,27 @@ public class NotesDAO {
 
         return subjects;
     }
+    public ObservableList<Notes>  allNotesForCollege () {
+        ObservableList<Notes> a = FXCollections.observableArrayList();
+        try {
+            ResultSet rs = allNotesForCollege.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String text = rs.getString(2);
+                String name = rs.getString(3);
+                int subject = rs.getInt(4);
+                int user = rs.getInt(5);
+                int sort = rs.getInt(6);
+                Users users = returnUser(user);
+                Subjects subjects = returnSubjects(subject);
+                Notes notes = new Notes(id,text,name,subjects,users,sort);
+                a.add(notes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return a;
+    }
+
 }

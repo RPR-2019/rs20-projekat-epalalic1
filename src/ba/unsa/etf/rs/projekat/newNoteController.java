@@ -33,10 +33,20 @@ public class newNoteController {
     }
 
     public Notes notes = null;
+    public Notes notes1 = null;
+    public newNoteController (Notes notes2) {
+        notes1 = notes2;
+    }
+
+
 
 
     @FXML
     public void initialize () {
+        if (notes1!=null) {
+            nameOfNote.setText(notes1.getName());
+            textFld.setText(notes1.getText());
+        }
         NotesDAO a = NotesDAO.getInstance();
         nameOfNote.textProperty().addListener((obs,staro,novo) -> {
             if (novo.isEmpty()) {
@@ -96,5 +106,13 @@ public class newNoteController {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Notes getNotes1() {
+        return notes1;
+    }
+
+    public void setNotes1(Notes notes1) {
+        this.notes1 = notes1;
     }
 }

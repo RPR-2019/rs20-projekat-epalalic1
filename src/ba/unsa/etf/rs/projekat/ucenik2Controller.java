@@ -47,46 +47,54 @@ public class ucenik2Controller {
 
     @FXML
     public void initialize () {
+        NotesDAO a = NotesDAO.getInstance();
         if (main2Controller.getInstance().ucenikBtn.isArmed()) {
             Type type = new Type(1,"srednja");
-            NotesDAO a = NotesDAO.getInstance();
             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
             chooseTopic.setItems(a.allNotesForSchool());
-            topicColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-            subjectColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
-                    () -> cellData.getValue().getSubjects().getName()
-            ));
-            authorColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
-                    () -> cellData.getValue().getUsers().getUsername()
-            ));
             resultOfSearch.getItems().setAll(a.allNotesForSchool());
-            chooseSubject.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
-                if (chooseSubject.getValue()!=null) {
-                    subject = true;
-                }
-            });
-            chooseTopic.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
-                if (chooseTopic.getValue()!=null) {
-                    topic = true;
-                }
-            });
-            resultOfSearch.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
-                if (novo!=null) {
-                    notes = novo;
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/note.fxml"));
-                    Parent root = null;
-                    try {
-                        root = (Parent) loader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Stage myStage = new Stage();
-                    myStage.setTitle("Forma");
-                    myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    myStage.show();
-                }
-            });
+
         }
+        else if (main2Controller.getInstance().studentBtn.isArmed()) {
+            Type type = new Type(2,"fakultet");
+            chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
+            chooseTopic.setItems(a.allNotesForCollege());
+            resultOfSearch.getItems().setAll(a.allNotesForCollege());
+        }
+        topicColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        subjectColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
+                () -> cellData.getValue().getSubjects().getName()
+        ));
+        authorColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
+                () -> cellData.getValue().getUsers().getUsername()
+        ));
+
+        chooseSubject.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+            if (chooseSubject.getValue()!=null) {
+                subject = true;
+            }
+        });
+        chooseTopic.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+            if (chooseTopic.getValue()!=null) {
+                topic = true;
+            }
+        });
+        resultOfSearch.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+            if (novo!=null) {
+                notes = novo;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/note.fxml"));
+                Parent root = null;
+                try {
+                    root = (Parent) loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage myStage = new Stage();
+                myStage.setTitle("Forma");
+                myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                myStage.show();
+            }
+        });
     }
 
     public void logOutAction(ActionEvent actionEvent) throws IOException {
@@ -109,6 +117,7 @@ public class ucenik2Controller {
             if (newNoteController.getInstance().getNotes()!=null) {
                 if (newNoteController.getInstance().getNotes().getSort()!=0) {
                     resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());
+                    chooseTopic.getItems().add(newNoteController.getInstance().getNotes());
                 }
             }
         }
@@ -129,7 +138,10 @@ public class ucenik2Controller {
             ObservableList<Notes> a = FXCollections.observableArrayList();
             a.addAll(dao.returnNotesByTopic(searchNote.getText()));
             Subjects subjects = dao.returnSubjectByName(searchNote.getText());
-            a.addAll(dao.returnNotesBySubject(subjects.getId()));
+            if (subjects!=null) {
+                a.addAll(dao.returnNotesBySubject(subjects.getId()));
+            }
+
             resultOfSearch.setItems(a);
 
         }
