@@ -1,6 +1,8 @@
 package ba.unsa.etf.rs.projekat;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -124,15 +127,23 @@ public class UcenikController {
 
 
     public void searchAction(ActionEvent actionEvent) {
-        NotesDAO dao = NotesDAO.getInstance();
-        if (subject && !topic) {
+            NotesDAO dao = NotesDAO.getInstance();
+        if (subject && !topic && searchNote.getText().isEmpty()) {
             resultOfSearch.setItems(dao.returnNotesBySubject(chooseSubject.getValue().getId()));
         }
-        else if (!subject && topic) {
+        else if (!subject && topic && searchNote.getText().isEmpty()) {
             resultOfSearch.setItems(dao.returnNotesByTopic(chooseTopic.getValue().getName()));
         }
-        else  {
+        else if (subject && topic && searchNote.getText().isEmpty()) {
             resultOfSearch.setItems(dao.returnNotesBySubjectAndNote(chooseSubject.getValue().getId(), chooseTopic.getValue().getName()));
+        }
+        else if (!subject && !topic && !searchNote.getText().isEmpty()) {
+            ObservableList<Notes> a = FXCollections.observableArrayList();
+            a.addAll(dao.returnNotesByTopic(searchNote.getText()));
+            Subjects subjects = dao.returnSubjectByName(searchNote.getText());
+            a.addAll(dao.returnNotesBySubject(subjects.getId()));
+            resultOfSearch.setItems(a);
+
         }
     }
 }

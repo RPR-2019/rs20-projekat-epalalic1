@@ -16,7 +16,8 @@ public class NotesDAO {
     private PreparedStatement upit,addUser,maxIdUser,checkIfUserExists, returnStatus,returnNameOfStatus,returnAllType,
     returnSubjectsWithSpecType,addNote,maxIdOfNote,allNotesForSchool,returnSubject,returnUser,returnType,returnStatus1,
     retrunAllNotes, searchNoteBySubject,searchNoteByTopic,searchNoteBySubjectAndTopic, addReference, maxIdOfReference,
-    returnAllReferencesForSpecNote, returnNoteById, returnNotesByUser,deleteNote, editNote,deleteReferences;
+    returnAllReferencesForSpecNote, returnNoteById, returnNotesByUser,deleteNote, editNote,deleteReferences,
+    returnSubjectByName;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -93,10 +94,10 @@ public class NotesDAO {
             returnStatus1 = conn.prepareStatement("SELECT * FROM status WHERE id = ?");
             retrunAllNotes  = conn.prepareStatement("SELECT * FROM notes");
             searchNoteBySubject = conn.prepareStatement("SELECT * FROM notes INNER JOIN subjects ON " +
-                    "notes.subject = subjects.id WHERE subjects.id = ?");
-            searchNoteByTopic = conn.prepareStatement("SELECT * FROM notes WHERE name = ?");
+                    "notes.subject = subjects.id WHERE subjects.id = ? AND notes.sort = 1");
+            searchNoteByTopic = conn.prepareStatement("SELECT * FROM notes WHERE name = ? AND sort = 1");
             searchNoteBySubjectAndTopic = conn.prepareStatement("SELECT * FROM notes INNER JOIN subjects ON " +
-                    "notes.subject = subjects.id WHERE subjects.id = ? AND notes.name = ?");
+                    "notes.subject = subjects.id WHERE subjects.id = ? AND notes.name = ? AND notes.sort = 1");
             addReference = conn.prepareStatement("INSERT INTO referencess VALUES(?,?,?,?)");
             maxIdOfReference = conn.prepareStatement("SELECT MAX(id)+1 FROM referencess");
             returnAllReferencesForSpecNote = conn.prepareStatement("SELECT * FROM referencess WHERE note = ?");
@@ -106,6 +107,7 @@ public class NotesDAO {
             editNote = conn.prepareStatement("UPDATE notes SET text = ?, name = ?, subject = ?, user = ?, sort = ? " +
                     "WHERE id = ? ");
             deleteReferences = conn.prepareStatement("DELETE FROM referencess WHERE note = ?");
+            returnSubjectByName = conn.prepareStatement("SELECT * FROM subjects WHERE name = ?");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -551,5 +553,37 @@ public class NotesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public Type returnType (int id) {
+        Type type = null;
+        try {
+            returnType.setInt(1,id);
+            ResultSet rs = returnType.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                type = new Type(id,name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return type;
+    }
+    public Subjects returnSubjectByName (String name) {
+        Subjects subjects = null;
+        try {
+            returnSubjectByName.setString(1,name);
+            ResultSet rs = returnSubjectByName.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                int type = rs.getInt(3);
+                Type type1 = returnType(type);
+                subjects = new Subjects(id,name,type1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return subjects;
     }
 }

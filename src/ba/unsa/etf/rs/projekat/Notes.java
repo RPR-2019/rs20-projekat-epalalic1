@@ -1,5 +1,7 @@
 package ba.unsa.etf.rs.projekat;
 
+import java.util.Objects;
+
 public class Notes {
     private int id,sort;
     private String name,text;
@@ -75,5 +77,15 @@ public class Notes {
     public String toString () {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Notes notes = (Notes) o;
+        return id == notes.id;
+    }
+
+
 }
 

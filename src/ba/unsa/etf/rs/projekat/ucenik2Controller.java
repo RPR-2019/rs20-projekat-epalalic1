@@ -1,6 +1,8 @@
 package ba.unsa.etf.rs.projekat;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -90,11 +96,6 @@ public class ucenik2Controller {
         Stage stage = (Stage) buttonHelp.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-       /* Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/srednjoskolac.fxml"));
-        Scene scene = new Scene(homePage);
-        Stage stage = (Stage) buttonNote.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();*/
     }
 
     public void addNoteAction(ActionEvent actionEvent) throws IOException {
@@ -115,14 +116,22 @@ public class ucenik2Controller {
 
     public void searchAction(ActionEvent actionEvent) {
         NotesDAO dao = NotesDAO.getInstance();
-        if (subject && !topic) {
+        if (subject && !topic && searchNote.getText().isEmpty()) {
             resultOfSearch.setItems(dao.returnNotesBySubject(chooseSubject.getValue().getId()));
         }
-        else if (!subject && topic) {
+        else if (!subject && topic && searchNote.getText().isEmpty()) {
             resultOfSearch.setItems(dao.returnNotesByTopic(chooseTopic.getValue().getName()));
         }
-        else  {
+        else if (subject && topic && searchNote.getText().isEmpty()) {
            resultOfSearch.setItems(dao.returnNotesBySubjectAndNote(chooseSubject.getValue().getId(), chooseTopic.getValue().getName()));
+        }
+        else if (!subject && !topic && !searchNote.getText().isEmpty()) {
+            ObservableList<Notes> a = FXCollections.observableArrayList();
+            a.addAll(dao.returnNotesByTopic(searchNote.getText()));
+            Subjects subjects = dao.returnSubjectByName(searchNote.getText());
+            a.addAll(dao.returnNotesBySubject(subjects.getId()));
+            resultOfSearch.setItems(a);
+
         }
 
     }
