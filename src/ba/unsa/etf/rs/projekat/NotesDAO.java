@@ -17,7 +17,7 @@ public class NotesDAO {
     returnSubjectsWithSpecType,addNote,maxIdOfNote,allNotesForSchool,returnSubject,returnUser,returnType,returnStatus1,
     retrunAllNotes, searchNoteBySubject,searchNoteByTopic,searchNoteBySubjectAndTopic, addReference, maxIdOfReference,
     returnAllReferencesForSpecNote, returnNoteById, returnNotesByUser,deleteNote, editNote,deleteReferences,
-    returnSubjectByName,allNotesForCollege;
+    returnSubjectByName,allNotesForCollege,editUser;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -110,7 +110,8 @@ public class NotesDAO {
             returnSubjectByName = conn.prepareStatement("SELECT * FROM subjects WHERE name = ?");
             allNotesForCollege = conn.prepareStatement("SELECT * FROM (notes INNER JOIN subjects ON " +
                     "notes.subject = subjects.id ) INNER JOIN type ON subjects.type = type.id WHERE type.id = 2 AND notes.sort = 1");
-
+            editUser = conn.prepareStatement("UPDATE users SET name = ?, surname = ?, username = ?, email = ?, " +
+                    "password = ?, status = ? WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -537,7 +538,6 @@ public class NotesDAO {
     }
     public void editNote (Notes notes) {
         try {
-            System.out.println(notes.getId() + " " + notes.getName());
             editNote.setString(1,notes.getText());
             editNote.setString(2,notes.getName());
             editNote.setInt(3,notes.getSubjects().getId());
@@ -612,4 +612,19 @@ public class NotesDAO {
         return a;
     }
 
+    public void editUser(Users users) {
+        try {
+            editUser.setString(1,users.getName());
+            editUser.setString(2,users.getSurname());
+            editUser.setString(3,users.getUsername());
+            editUser.setString(4,users.getEmail());
+            editUser.setString(5,users.getPassword());
+            editUser.setInt(6,users.getStatus().getId());
+            editUser.setInt(7,users.getId());
+            editUser.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -3,16 +3,14 @@ package ba.unsa.etf.rs.projekat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class FormaController {
-
+    public GridPane pane;
     public TextField nameField;
     public TextField surnameField;
     public TextField usernameField;
@@ -22,13 +20,32 @@ public class FormaController {
     public ChoiceBox<String> statusField;
     private boolean name = false,surname = false,username = false,email = false, password = false,rpassword = false;
     private Users users = null;
-
-    public FormaController () {
-    }
+    public Button signInBtn;
+    public Button outBtn;
+    public Users user1 = null;
 
 
     @FXML
     public void initialize () {
+        if (user1!=null) {
+            nameField.setText(user1.getName());
+            surnameField.setText(user1.getSurname());
+            usernameField.setText(user1.getUsername());
+            emailField.setText(user1.getEmail());
+            passwordField.setText(user1.getPassword());
+            repeatField.setText(user1.getPassword());
+            statusField.setValue(user1.getStatus().getStatus());
+            name = true;
+            surname = true;
+            username = true;
+            email = true;
+            password = true;
+            rpassword = true;
+
+        }
+        pane.getStyleClass().add("colorOfBackground");
+        signInBtn.getStyleClass().add("colorOfBackground");
+        outBtn.getStyleClass().add("colorOfBackground");
         statusField.getItems().addAll("Student", "Ucenik", "Nijedno");
         nameField.textProperty().addListener((obs,staro,novo) -> {
             if (novo.isEmpty()) {
@@ -156,7 +173,7 @@ public class FormaController {
 
 
     public void addUserAction(ActionEvent actionEvent) throws IOException {
-            if (name && surname && username && email && password && rpassword) {
+            if (name && surname && username && email && password && rpassword && user1==null) {
                 NotesDAO a = NotesDAO.getInstance();
                 Status status = a.returnStatus(statusField.getValue());
                 users = new Users(nameField.getText(),surnameField.getText(),usernameField.getText(),
@@ -167,6 +184,16 @@ public class FormaController {
                 stage.close();
 
 
+            }
+            else if (name && surname && username && email && password && rpassword ) {
+                NotesDAO a = NotesDAO.getInstance();
+                Status status = a.returnStatus(statusField.getValue());
+                users = new Users(user1.getId(),nameField.getText(),surnameField.getText(),usernameField.getText(),
+                        emailField.getText(),passwordField.getText(),status);
+                a.editUser(users);
+                Node n = (Node) actionEvent.getSource();
+                Stage stage = (Stage) n.getScene().getWindow();
+                stage.close();
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -184,5 +211,11 @@ public class FormaController {
         stage.close();
     }
 
+    public Users getUser1() {
+        return user1;
+    }
 
+    public void setUser1(Users user1) {
+        this.user1 = user1;
+    }
 }

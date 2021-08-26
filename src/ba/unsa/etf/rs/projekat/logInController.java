@@ -2,13 +2,16 @@ package ba.unsa.etf.rs.projekat;
 
 import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +20,8 @@ public class logInController {
     public TextField usernameFld;
     public PasswordField passwordFld;
     public Label wrongData;
+    public GridPane pane;
+    public Button logIn;
     private Users user = null;
 
     public static logInController instance;
@@ -25,6 +30,12 @@ public class logInController {
     }
     public static logInController getInstance() {
         return instance;
+    }
+
+    @FXML
+    public void initialize () {
+        pane.getStyleClass().add("colorOfBackground");
+        logIn.getStyleClass().add("colorOfBackground");
     }
 
     public void logInAction(ActionEvent actionEvent) throws IOException {

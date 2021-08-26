@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PopupControl;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -77,5 +78,18 @@ public class profileController {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public void editProfile(ActionEvent actionEvent) throws IOException {
+        FormaController a = new FormaController();
+        a.setUser1(users);
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
+        loader.setController(a);
+        Parent root = loader.load();
+        myStage.setTitle("Novi prozor");
+        myStage.setScene(new Scene(root, PopupControl.USE_COMPUTED_SIZE, PopupControl.USE_COMPUTED_SIZE));
+        myStage.setResizable(false);
+        myStage.showAndWait();
     }
 }

@@ -27,7 +27,7 @@
             <Label fx:id="nameLabel" />
             <Label fx:id="surnameLabel" />
             <Label fx:id="usernameLabel" />
-            <Button mnemonicParsing="false" text="Uredi profil">
+            <Button onAction="#editProfile" mnemonicParsing="false" text="Uredi profil">
                <VBox.margin>
                   <Insets top="100.0" />
                </VBox.margin>

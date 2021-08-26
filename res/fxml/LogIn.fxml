@@ -9,7 +9,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="5.0" prefHeight="164.0" prefWidth="271.0" vgap="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.logInController">
+<?import java.net.URL?>
+<GridPane fx:id="pane" hgap="5.0" prefHeight="164.0" prefWidth="271.0" vgap="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.logInController">
+    <stylesheets>
+        <URL value="@/css/forma.css" />
+    </stylesheets>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -26,7 +30,7 @@
       <TextField fx:id="usernameFld" GridPane.rowIndex="1" />
       <Label text="Unesite username:" />
       <Label text="Unesite sifru:" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#logInAction" text="Prijavi se" GridPane.rowIndex="6" />
+      <Button fx:id="logIn" mnemonicParsing="false" onAction="#logInAction" text="Prijavi se" GridPane.rowIndex="6" />
       <PasswordField fx:id="passwordFld" GridPane.rowIndex="3" />
       <Label fx:id="wrongData" textFill="#e40c0c" GridPane.rowIndex="4" />
    </children>

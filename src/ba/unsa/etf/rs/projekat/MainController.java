@@ -24,6 +24,8 @@ public class MainController {
     public Button buttonId;
     public Label profileLabel;
     public Button buttonId2;
+    public Button logIn;
+    public Button signIn;
     @FXML
     private BorderPane pane;
     @FXML
@@ -36,10 +38,18 @@ public class MainController {
     public static MainController  getInstance() {
         return instance;
     }
+    @FXML
+    public void initialize () {
+        pane.getStyleClass().add("colorOfBackground");
+        buttonId.getStyleClass().add("colorOfBackgroundofButton");
+        buttonId2.getStyleClass().add("colorOfBackgroundofButton");
+        logIn.getStyleClass().add("colorOfBackgroundofButton");
+        signIn.getStyleClass().add("colorOfBackgroundofButton");
 
+    }
 
     public void student(ActionEvent actionEvent) throws IOException {
-        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/student.fxml"));
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/srednjoskolac.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         //stage.hide();
@@ -89,6 +99,7 @@ public class MainController {
         Stage myStage = new Stage();
         myStage.setTitle("Forma");
         myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.setResizable(false);
         myStage.show();
     }
 

@@ -44,11 +44,19 @@ public class UcenikController {
     public void initialize () {
         MainController dao = MainController.getInstance();
         ucenik2Controller dao1 = ucenik2Controller.getInstance();
-        if (dao.buttonId2.isArmed() || dao1.getBrojac()!=0) {
-            Type type = new Type(1,"srednja");
-            NotesDAO a = NotesDAO.getInstance();
-            chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
-            chooseTopic.setItems(a.allNotesForSchool());
+        NotesDAO a = NotesDAO.getInstance();
+         if (dao.buttonId.isArmed() ) {
+             Type type = new Type(1,"fakultet");
+             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
+             chooseTopic.setItems(a.allNotesForCollege());
+             resultOfSearch.getItems().setAll(a.allNotesForCollege());
+        }
+        else if (dao.buttonId2.isArmed() || dao1.getBrojac()!=0) {
+             Type type = new Type(1, "srednja");
+             resultOfSearch.getItems().setAll(a.allNotesForSchool());
+             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
+             chooseTopic.setItems(a.allNotesForSchool());
+         }
             topicColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             subjectColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
                     () -> cellData.getValue().getSubjects().getName()
@@ -56,7 +64,6 @@ public class UcenikController {
             authorColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
                     () -> cellData.getValue().getUsers().getUsername()
             ));
-            resultOfSearch.getItems().setAll(a.allNotesForSchool());
             chooseSubject.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
                 if (chooseSubject.getValue()!=null) {
                     subject = true;
@@ -83,7 +90,8 @@ public class UcenikController {
                     myStage.show();
                 }
             });
-        }
+
+
     }
 
 

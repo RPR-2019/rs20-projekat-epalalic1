@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="419.0" vgap="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<GridPane fx:id="pane" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="419.0" vgap="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets>
         <URL value="@/css/forma.css" />
     </stylesheets>
@@ -48,8 +48,8 @@
       <ChoiceBox fx:id="statusField" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
         <buttons>
-          <Button defaultButton="true" mnemonicParsing="false" onAction="#addUserAction" text="Ok" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelAction" text="Cancel" />
+          <Button fx:id="signInBtn" defaultButton="true" mnemonicParsing="false" onAction="#addUserAction" text="Ok" />
+            <Button  fx:id="outBtn" cancelButton="true" mnemonicParsing="false" onAction="#cancelAction" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>
