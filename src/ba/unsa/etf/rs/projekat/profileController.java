@@ -81,6 +81,7 @@ public class profileController {
     }
 
     public void editProfile(ActionEvent actionEvent) throws IOException {
+        NotesDAO dao = NotesDAO.getInstance();
         FormaController a = new FormaController();
         a.setUser1(users);
         Stage myStage = new Stage();
@@ -91,5 +92,12 @@ public class profileController {
         myStage.setScene(new Scene(root, PopupControl.USE_COMPUTED_SIZE, PopupControl.USE_COMPUTED_SIZE));
         myStage.setResizable(false);
         myStage.showAndWait();
+        if (!myStage.isShowing()) {
+            Users users1 = dao.returnUser(a.getUser1().getId());
+            users = users1;
+            usernameLabel.setText(users1.getUsername());
+            nameLabel.setText(users1.getName());
+            surnameLabel.setText(users1.getSurname());
+        }
     }
 }

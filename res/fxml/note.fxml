@@ -50,7 +50,7 @@
             <ListView fx:id="listOfComments" prefHeight="313.0" prefWidth="109.0" />
          </children>
       </VBox>
-      <Button mnemonicParsing="false" text="Snimi biljesku" GridPane.rowIndex="1" />
+      <Button onAction="#recordNote" mnemonicParsing="false" text="Snimi biljesku" GridPane.rowIndex="1" />
       <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addRateAndComment" text="Dodaj komentar" GridPane.columnIndex="2" GridPane.rowIndex="1" />
    </children>
    <padding>

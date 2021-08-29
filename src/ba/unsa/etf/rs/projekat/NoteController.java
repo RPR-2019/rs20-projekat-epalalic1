@@ -3,6 +3,10 @@ package ba.unsa.etf.rs.projekat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 public class NoteController {
     public TextArea textFld;
@@ -53,7 +57,25 @@ public class NoteController {
             listOfComments.getItems().add(references);
             dao.addReference(references);
         }
-        /*References references = new References(notes.getId(),commentFld.getText(),spinnerFld.getValue(),notes);
-        listOfComments.getItems().add(references);*/
+    }
+
+    public void recordNote(ActionEvent actionEvent) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Zapiši JSON datoteku");
+            Stage stage = (Stage)rateFld.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+            if (file == null)
+                return;
+
+            JSONFormat xml = new JSONFormat();
+            xml.setNotes(notes);
+            xml.writeNotes(file);
+        } catch(Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wrong file format");
+            alert.setContentText("An error occured during file save.");
+            alert.showAndWait();
+        }
     }
 }

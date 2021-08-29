@@ -46,7 +46,8 @@ public class UcenikController {
         ucenik2Controller dao1 = ucenik2Controller.getInstance();
         NotesDAO a = NotesDAO.getInstance();
          if (dao.buttonId.isArmed() ) {
-             Type type = new Type(1,"fakultet");
+             System.out.println("Emina Palalic");
+             Type type = new Type(2,"fakultet");
              chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
              chooseTopic.setItems(a.allNotesForCollege());
              resultOfSearch.getItems().setAll(a.allNotesForCollege());
