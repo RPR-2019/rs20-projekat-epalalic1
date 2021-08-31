@@ -3,6 +3,7 @@ package ba.unsa.etf.rs.projekat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -99,5 +100,14 @@ public class profileController {
             nameLabel.setText(users1.getName());
             surnameLabel.setText(users1.getSurname());
         }
+    }
+
+    public void goBackAction(ActionEvent actionEvent) throws IOException {
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/logedInH.fxml"));
+        Scene scene = new Scene(homePage);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        //stage.hide();
+        stage.setScene(scene);
+        stage.show();
     }
 }

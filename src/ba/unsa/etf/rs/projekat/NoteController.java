@@ -50,7 +50,12 @@ public class NoteController {
         References references = null;
         NotesDAO dao = NotesDAO.getInstance();
         if (spinnerFld.getValue() == 0 || commentFld.getText().isEmpty()) {
-            System.out.println("Ne mozete dodati komentar");//ovdje baciti izuzetak
+            try {
+                throw new canNotLeaveCommentException("Ne mozete ostaviti komentar");
+            } catch (canNotLeaveCommentException e) {
+               commentFld.getStyleClass().removeAll();
+               commentFld.getStyleClass().add("poljeNijeIspravno");
+            }
         }
         else {
             references = new References(commentFld.getText(),spinnerFld.getValue(),notes);
