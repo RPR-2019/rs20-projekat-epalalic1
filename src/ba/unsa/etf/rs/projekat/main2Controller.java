@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class main2Controller {
     public static main2Controller instance;
     public Button studentBtn;
     public Button ucenikBtn;
+    public BorderPane pane;
 
     public main2Controller () {
         instance = this;
@@ -30,6 +32,9 @@ public class main2Controller {
 
     @FXML
     public void initialize ()  {
+        pane.getStyleClass().add("colorOfBackground");
+        studentBtn.getStyleClass().add("colorOfBackgroundofButton");
+        ucenikBtn.getStyleClass().add("colorOfBackgroundofButton");
 
         FormaController a = new FormaController();
         if (MainController.getInstance().getUsers()!=null) {

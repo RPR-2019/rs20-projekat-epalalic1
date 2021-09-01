@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -12,10 +13,13 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.main2Controller">
+   <stylesheets>
+      <URL value="@/css/forma.css" />
+   </stylesheets>
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bilješke s predavanja" BorderPane.alignment="CENTER">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold Italic" size="36.0" />
          </font>
       </Text>
    </top>
@@ -25,8 +29,14 @@
    <bottom>
       <ButtonBar prefHeight="86.0" prefWidth="704.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" fx:id="studentBtn" onAction="#student" prefHeight="97.0" prefWidth="415.0" text="Student" />
-            <Button mnemonicParsing="false" fx:id="ucenikBtn" onAction="#srednjoskolac" prefHeight="91.0" text="Srednjoškolac" />
+          <Button fx:id="studentBtn" mnemonicParsing="false" onAction="#student" prefHeight="97.0" prefWidth="415.0" text="Student">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font></Button>
+            <Button fx:id="ucenikBtn" mnemonicParsing="false" onAction="#srednjoskolac" prefHeight="91.0" text="Srednjoškolac">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font></Button>
         </buttons>
       </ButtonBar>
    </bottom>
@@ -44,7 +54,7 @@
                <children>
                   <Label fx:id="profileLabel" maxWidth="1.7976931348623157E308">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
                </children>

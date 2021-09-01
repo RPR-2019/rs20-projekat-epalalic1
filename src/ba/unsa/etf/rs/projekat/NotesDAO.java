@@ -17,7 +17,7 @@ public class NotesDAO {
     returnSubjectsWithSpecType,addNote,maxIdOfNote,allNotesForSchool,returnSubject,returnUser,returnType,returnStatus1,
     retrunAllNotes, searchNoteBySubject,searchNoteByTopic,searchNoteBySubjectAndTopic, addReference, maxIdOfReference,
     returnAllReferencesForSpecNote, returnNoteById, returnNotesByUser,deleteNote, editNote,deleteReferences,
-    returnSubjectByName,allNotesForCollege,editUser;
+    returnSubjectByName,allNotesForCollege,editUser, returnAllReferences,returnAllReferences2;
 
     public static NotesDAO getInstance() {
         if (instance == null) instance = new NotesDAO();
@@ -112,6 +112,10 @@ public class NotesDAO {
                     "notes.subject = subjects.id ) INNER JOIN type ON subjects.type = type.id WHERE type.id = 2 AND notes.sort = 1");
             editUser = conn.prepareStatement("UPDATE users SET name = ?, surname = ?, username = ?, email = ?, " +
                     "password = ?, status = ? WHERE id = ?");
+            returnAllReferences = conn.prepareStatement("SELECT * FROM referencess INNER JOIN notes ON " +
+                    "referencess.note = notes.id INNER JOIN subjects ON notes.subject = subjects.id WHERE type = 1");
+            returnAllReferences2 = conn.prepareStatement("SELECT * FROM referencess INNER JOIN notes ON " +
+                    "referencess.note = notes.id INNER JOIN subjects ON notes.subject = subjects.id WHERE type = 2");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -626,5 +630,43 @@ public class NotesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public ArrayList<References> returnAllReferences () {
+        ArrayList<References> a = new ArrayList<>();
+        try {
+            ResultSet rs = returnAllReferences.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String text = rs.getString(2);
+                int rate = rs.getInt(3);
+                int note = rs.getInt(4);
+                Notes notes = returnNoteById(note);
+                References references = new References(id,text,rate,notes);
+                a.add(references);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return a;
+    }
+    public ArrayList<References> returnAllReferences2 () {
+        ArrayList<References> a = new ArrayList<>();
+        try {
+            ResultSet rs = returnAllReferences2.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String text = rs.getString(2);
+                int rate = rs.getInt(3);
+                int note = rs.getInt(4);
+                Notes notes = returnNoteById(note);
+                References references = new References(id,text,rate,notes);
+                a.add(references);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return a;
     }
 }

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PopupControl;
@@ -21,6 +22,7 @@ public class profileController {
     public Label surnameLabel;
     public Label usernameLabel;
     public ListView<Notes> listOfNotes;
+    public Button goBackButton;
     Users users = null;
     Notes notes = null;
 
@@ -31,9 +33,10 @@ public class profileController {
     public static profileController getInstance() {
         return instance;
     }
-
+    private Type type = null;
     @FXML
     public void initialize () {
+        type = ucenik2Controller.getInstance().type;
         NotesDAO dao1 = NotesDAO.getInstance();
         main2Controller dao = main2Controller.getInstance();
         users = dao.getUser();

@@ -11,10 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +36,9 @@ public class ucenik2Controller {
     public TableColumn<Notes, String> authorColumn;
     public MenuItem logOutBtn;
     public MenuButton menuItem;
+    public GridPane pane;
+    public Button buttonSearch;
+    public ListView<Notes> mostWanted;
     private boolean subject = false, topic = false,tekstFld = false;
     private int brojac = 0;
     Notes notes = null;
@@ -44,22 +49,63 @@ public class ucenik2Controller {
     public static ucenik2Controller getInstance() {
         return instance;
     }
-
+    Type type = null;
     @FXML
     public void initialize () {
+        pane.getStyleClass().add("colorOfBackground");
+        buttonHelp.getStyleClass().add("colorOfBackgroundofButton");
+        chooseTopic.getStyleClass().add("colorOfBackgroundofButton");
+        chooseSubject.getStyleClass().add("colorOfBackgroundofButton");
+        searchNote.getStyleClass().add("colorOfBackgroundofButton");
+        menuItem.getStyleClass().add("colorOfBackgroundofButton");
+        buttonNote.getStyleClass().add("colorOfBackgroundofButton");
+        buttonSearch.getStyleClass().add("colorOfBackgroundofButton");
+
+
         NotesDAO a = NotesDAO.getInstance();
         if (main2Controller.getInstance().ucenikBtn.isArmed()) {
-            Type type = new Type(1,"srednja");
+             type = new Type(1,"srednja");
             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
             chooseTopic.setItems(a.allNotesForSchool());
             resultOfSearch.getItems().setAll(a.allNotesForSchool());
+            List<References> lista = a.returnAllReferences();
+            Collections.sort(lista);
+            ObservableList<Notes> alist = FXCollections.observableArrayList();
+            for (References item: lista) {
+                alist.add(item.getNotes());
+            }
+            Collections.reverse(alist);
+            mostWanted.getItems().setAll(alist);
 
         }
         else if (main2Controller.getInstance().studentBtn.isArmed()) {
-            Type type = new Type(2,"fakultet");
+            type = new Type(2,"fakultet");
             chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
             chooseTopic.setItems(a.allNotesForCollege());
             resultOfSearch.getItems().setAll(a.allNotesForCollege());
+            List<References> lista = a.returnAllReferences2();
+            Collections.sort(lista);
+            ObservableList<Notes> alist = FXCollections.observableArrayList();
+            for (References item: lista) {
+                alist.add(item.getNotes());
+            }
+            Collections.reverse(alist);
+            mostWanted.getItems().setAll(alist);
+        }
+        else if (profileController.getInstance().goBackButton.isArmed()) {
+            if (profileController.getInstance().getUsers().getStatus().getId() == 1) {
+                type = new Type(1,"srednja");
+                chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
+                chooseTopic.setItems(a.allNotesForSchool());
+                resultOfSearch.getItems().setAll(a.allNotesForSchool());
+            }
+            else if (profileController.getInstance().getUsers().getStatus().getId() == 2) {
+                type = new Type(2,"fakultet");
+                chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
+                chooseTopic.setItems(a.allNotesForCollege());
+                resultOfSearch.getItems().setAll(a.allNotesForCollege());
+            }
+
         }
         topicColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         subjectColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
@@ -115,7 +161,8 @@ public class ucenik2Controller {
         myStage.showAndWait();
         if (!myStage.isShowing()) {
             if (newNoteController.getInstance().getNotes()!=null) {
-                if (newNoteController.getInstance().getNotes().getSort()!=0) {
+                if (newNoteController.getInstance().getNotes().getSort()!=0 &&
+                newNoteController.getInstance().getNotes().getSubjects().getType().getId() == type.getId() ) {
                     resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());
                     chooseTopic.getItems().add(newNoteController.getInstance().getNotes());
                 }

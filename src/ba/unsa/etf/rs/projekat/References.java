@@ -1,6 +1,6 @@
 package ba.unsa.etf.rs.projekat;
 
-public class References {
+public class References implements Comparable{
     private int id,rate;
     private String comment;
     private Notes notes;
@@ -58,5 +58,11 @@ public class References {
     @Override
     public String toString () {
         return comment;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+      return Integer.compare(rate, ((References) o).getRate());
     }
 }

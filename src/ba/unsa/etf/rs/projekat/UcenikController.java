@@ -11,9 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -27,6 +33,11 @@ public class UcenikController {
     public TableColumn<Notes, String> topicColumn;
     public TableColumn <Notes, String> subjectColumn;
     public TableColumn <Notes, String> authorColumn;
+    public GridPane pane;
+    public Button button1;
+    public Button button2;
+    public Button button3;
+    public ListView<Notes> mostWanted;
 
     public UcenikController () {
         instance = this;
@@ -42,22 +53,52 @@ public class UcenikController {
 
     @FXML
     public void initialize () {
+        pane.getStyleClass().add("colorOfBackground");
+        button1.getStyleClass().add("colorOfBackgroundofButton");
+        button2.getStyleClass().add("colorOfBackgroundofButton");
+        button3.getStyleClass().add("colorOfBackgroundofButton");
+        buttonHelp.getStyleClass().add("colorOfBackgroundofButton");
+        chooseTopic.getStyleClass().add("colorOfBackgroundofButton");
+        chooseSubject.getStyleClass().add("colorOfBackgroundofButton");
+        searchNote.getStyleClass().add("colorOfBackgroundofButton");
+
+
+
         MainController dao = MainController.getInstance();
         ucenik2Controller dao1 = ucenik2Controller.getInstance();
         NotesDAO a = NotesDAO.getInstance();
          if (dao.buttonId.isArmed() ) {
-             System.out.println("Emina Palalic");
              Type type = new Type(2,"fakultet");
+             System.out.println("Usli smo");
              chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
              chooseTopic.setItems(a.allNotesForCollege());
              resultOfSearch.getItems().setAll(a.allNotesForCollege());
+             List<References> lista = a.returnAllReferences2();
+             Collections.sort(lista);
+             ObservableList<Notes> alist = FXCollections.observableArrayList();
+             for (References item: lista) {
+                 alist.add(item.getNotes());
+             }
+             Collections.reverse(alist);
+             mostWanted.getItems().setAll(alist);
         }
         else if (dao.buttonId2.isArmed() || dao1.getBrojac()!=0) {
              Type type = new Type(1, "srednja");
              resultOfSearch.getItems().setAll(a.allNotesForSchool());
              chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
              chooseTopic.setItems(a.allNotesForSchool());
+             List<References> lista = a.returnAllReferences();
+             Collections.sort(lista);
+             ObservableList<Notes> alist = FXCollections.observableArrayList();
+             for (References item: lista) {
+                 alist.add(item.getNotes());
+             }
+             Collections.reverse(alist);
+             mostWanted.getItems().setAll(alist);
          }
+
+
+
             topicColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             subjectColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(
                     () -> cellData.getValue().getSubjects().getName()
@@ -155,4 +196,5 @@ public class UcenikController {
 
         }
     }
+
 }
