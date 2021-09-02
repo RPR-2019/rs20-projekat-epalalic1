@@ -48,8 +48,10 @@ public class NoteController {
 
     public void addRateAndComment(ActionEvent actionEvent) {
         References references = null;
+        System.out.println(notes.getUsers().getId() + " " + main2Controller.getInstance().getUser().getId() );
         NotesDAO dao = NotesDAO.getInstance();
-        if (spinnerFld.getValue() == 0 || commentFld.getText().isEmpty()) {
+        if (spinnerFld.getValue() == 0 || commentFld.getText().isEmpty() ||
+        notes.getUsers().getId()==main2Controller.getInstance().getUser().getId()) {
             try {
                 throw new canNotLeaveCommentException("Ne mozete ostaviti komentar");
             } catch (canNotLeaveCommentException e) {

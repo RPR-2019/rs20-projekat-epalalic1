@@ -75,12 +75,32 @@ public class UcenikController {
              resultOfSearch.getItems().setAll(a.allNotesForCollege());
              List<References> lista = a.returnAllReferences2();
              Collections.sort(lista);
+             int [] fr = new int[lista.size()];
+             List<References> rez = new ArrayList<>();
+             for (int i = 0;i < lista.size();i++) {
+                 int count = 1;
+                 int sum = lista.get(i).getRate();
+                 for (int j = i+1;j<lista.size();j++) {
+                     if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
+                         count++;
+                         sum = sum + lista.get(i).getRate();
+                         fr[i] = -1;
+
+                     }
+                 }
+                 if (fr[i] != -1) {
+                     fr[i] = sum/count;
+                     rez.add(lista.get(i));
+                 }
+             }
+
              ObservableList<Notes> alist = FXCollections.observableArrayList();
-             for (References item: lista) {
+             for (References item: rez) {
                  alist.add(item.getNotes());
              }
              Collections.reverse(alist);
              mostWanted.getItems().setAll(alist);
+
         }
         else if (dao.buttonId2.isArmed() || dao1.getBrojac()!=0) {
              Type type = new Type(1, "srednja");
@@ -89,8 +109,27 @@ public class UcenikController {
              chooseTopic.setItems(a.allNotesForSchool());
              List<References> lista = a.returnAllReferences();
              Collections.sort(lista);
+             int [] fr = new int[lista.size()];
+             List<References> rez = new ArrayList<>();
+             for (int i = 0;i < lista.size();i++) {
+                    int count = 1;
+                    int sum = lista.get(i).getRate();
+                    for (int j = i+1;j<lista.size();j++) {
+                        if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
+                            count++;
+                            sum = sum + lista.get(i).getRate();
+                            fr[i] = -1;
+
+                        }
+                    }
+                    if (fr[i] != -1) {
+                        fr[i] = sum/count;
+                        rez.add(lista.get(i));
+                    }
+             }
+
              ObservableList<Notes> alist = FXCollections.observableArrayList();
-             for (References item: lista) {
+             for (References item: rez) {
                  alist.add(item.getNotes());
              }
              Collections.reverse(alist);
