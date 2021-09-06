@@ -25,14 +25,6 @@ public class Notes {
         this.users = users;
         this.sort = sort;
     }
-    public  Notes ( String text, String name, Subjects subjects, Users users,int sort,References references) {
-        this.text = text;
-        this.name = name;
-        this.subjects = subjects;
-        this.users = users;
-        this.sort = sort;
-        this.references = references;
-    }
 
     public int getId() {
         return id;

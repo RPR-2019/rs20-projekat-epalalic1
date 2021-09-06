@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 public class note2Controller {
     public TextArea textFld;
     public TextField authorFld;
     public TextField rateFld;
     public ListView<References> listOfComments;
+    public GridPane pane;
     private Notes notes;
 
     @FXML

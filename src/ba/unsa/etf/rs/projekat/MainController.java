@@ -40,7 +40,7 @@ public class MainController {
     }
     @FXML
     public void initialize () {
-        pane.getStyleClass().add("colorOfBackground");
+        pane.getStyleClass().add("proba");
         buttonId.getStyleClass().add("colorOfBackgroundofButton");
         buttonId2.getStyleClass().add("colorOfBackgroundofButton");
         logIn.getStyleClass().add("colorOfBackgroundofButton");

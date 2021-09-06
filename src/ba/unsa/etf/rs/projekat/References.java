@@ -18,10 +18,7 @@ public class References implements Comparable{
         this.rate = rate;
         this.notes = notes;
     }
-    public References (String comment,  Notes notes) {
-        this.comment = comment;
-        this.notes = notes;
-    }
+
 
     public int getId() {
         return id;

@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PopupControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class profileController {
     public Label usernameLabel;
     public ListView<Notes> listOfNotes;
     public Button goBackButton;
+    public ImageView profileImage;
     Users users = null;
     Notes notes = null;
 

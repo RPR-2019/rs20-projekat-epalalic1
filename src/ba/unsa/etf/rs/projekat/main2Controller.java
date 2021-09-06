@@ -32,7 +32,6 @@ public class main2Controller {
 
     @FXML
     public void initialize ()  {
-        pane.getStyleClass().add("colorOfBackground");
         studentBtn.getStyleClass().add("colorOfBackgroundofButton");
         ucenikBtn.getStyleClass().add("colorOfBackgroundofButton");
 

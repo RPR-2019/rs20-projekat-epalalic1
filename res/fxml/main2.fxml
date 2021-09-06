@@ -33,7 +33,7 @@
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font></Button>
-            <Button fx:id="ucenikBtn" mnemonicParsing="false" onAction="#srednjoskolac" prefHeight="91.0" text="Srednjoškolac">
+            <Button fx:id="ucenikBtn" mnemonicParsing="false" onAction="#srednjoskolac" prefHeight="91.0" text="Učenik">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font></Button>

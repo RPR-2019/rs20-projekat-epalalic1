@@ -59,7 +59,7 @@
          </font>
       </Label>
       <Label GridPane.rowIndex="5" />
-      <Button fx:id="buttonHelp" mnemonicParsing="false" text="Klikni za pomoc" GridPane.rowIndex="5" />
+      <Button fx:id="buttonHelp" mnemonicParsing="false" onAction="#helpAction" text="Klikni za pomoc" GridPane.rowIndex="5" />
       <ComboBox fx:id="chooseSubject" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
       <Label text="Rezultati pretrage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <ComboBox fx:id="chooseTopic" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -80,7 +80,6 @@
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" GridPane.rowIndex="4">
          <children>
             <Button fx:id="buttonNote" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addNoteAction" text="Dodaj biljesku" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Moje biljeske" />
          </children>
       </VBox>
       <Button fx:id="buttonSearch" mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="61.0" text="Pretrazi" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -91,6 +90,7 @@
             <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Autor" />
         </columns>
       </TableView>
+      <Button mnemonicParsing="false" onAction="#goBackAction" text="Nazad" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -75,31 +75,8 @@ public class UcenikController {
              resultOfSearch.getItems().setAll(a.allNotesForCollege());
              List<References> lista = a.returnAllReferences2();
              Collections.sort(lista);
-             int [] fr = new int[lista.size()];
-             List<References> rez = new ArrayList<>();
-             for (int i = 0;i < lista.size();i++) {
-                 int count = 1;
-                 int sum = lista.get(i).getRate();
-                 for (int j = i+1;j<lista.size();j++) {
-                     if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
-                         count++;
-                         sum = sum + lista.get(i).getRate();
-                         fr[i] = -1;
+             mostWanted.setItems(sortByRate(lista));
 
-                     }
-                 }
-                 if (fr[i] != -1) {
-                     fr[i] = sum/count;
-                     rez.add(lista.get(i));
-                 }
-             }
-
-             ObservableList<Notes> alist = FXCollections.observableArrayList();
-             for (References item: rez) {
-                 alist.add(item.getNotes());
-             }
-             Collections.reverse(alist);
-             mostWanted.getItems().setAll(alist);
 
         }
         else if (dao.buttonId2.isArmed() || dao1.getBrojac()!=0) {
@@ -109,31 +86,7 @@ public class UcenikController {
              chooseTopic.setItems(a.allNotesForSchool());
              List<References> lista = a.returnAllReferences();
              Collections.sort(lista);
-             int [] fr = new int[lista.size()];
-             List<References> rez = new ArrayList<>();
-             for (int i = 0;i < lista.size();i++) {
-                    int count = 1;
-                    int sum = lista.get(i).getRate();
-                    for (int j = i+1;j<lista.size();j++) {
-                        if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
-                            count++;
-                            sum = sum + lista.get(i).getRate();
-                            fr[i] = -1;
-
-                        }
-                    }
-                    if (fr[i] != -1) {
-                        fr[i] = sum/count;
-                        rez.add(lista.get(i));
-                    }
-             }
-
-             ObservableList<Notes> alist = FXCollections.observableArrayList();
-             for (References item: rez) {
-                 alist.add(item.getNotes());
-             }
-             Collections.reverse(alist);
-             mostWanted.getItems().setAll(alist);
+             mostWanted.setItems(sortByRate(lista));
          }
 
 
@@ -230,10 +183,60 @@ public class UcenikController {
             ObservableList<Notes> a = FXCollections.observableArrayList();
             a.addAll(dao.returnNotesByTopic(searchNote.getText()));
             Subjects subjects = dao.returnSubjectByName(searchNote.getText());
-            a.addAll(dao.returnNotesBySubject(subjects.getId()));
+            if (subjects!=null) {
+                a.addAll(dao.returnNotesBySubject(subjects.getId()));
+            }
             resultOfSearch.setItems(a);
+
 
         }
     }
+    public ObservableList<Notes> sortByRate (List<References> lista) {
+        ObservableList<Notes> a = FXCollections.observableArrayList();
+        int [] fr = new int[lista.size()];
+        List<References> rez = new ArrayList<>();
+        for (int i = 0;i < lista.size();i++) {
+            int count = 1;
+            int sum = lista.get(i).getRate();
+            for (int j = i+1;j<lista.size();j++) {
+                if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
+                    count++;
+                    sum = sum + lista.get(i).getRate();
+                    fr[i] = -1;
 
+                }
+            }
+            if (fr[i] != -1) {
+                fr[i] = sum/count;
+                rez.add(lista.get(i));
+            }
+        }
+
+        ObservableList<Notes> alist = FXCollections.observableArrayList();
+        for (References item: rez) {
+            alist.add(item.getNotes());
+        }
+        Collections.reverse(alist);
+        return  alist;
+    }
+
+    public void helpAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/help2.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Forma");
+        myStage.setScene(new Scene(root, 700, 500));
+        myStage.setResizable(false);
+        myStage.show();
+
+    }
+
+    public void goBackAction(ActionEvent actionEvent) throws IOException {
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+        Scene scene = new Scene(homePage);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        //stage.hide();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

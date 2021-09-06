@@ -20,7 +20,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         primaryStage.setTitle("Biljeske sa predavanja");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rs.projekat.helpController">
+   <stylesheets>
+      <URL value="@/css/forma.css" />
+   </stylesheets>
+   <content>
+      <GridPane gridLinesVisible="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1581.0" prefWidth="658.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="320.0" minWidth="10.0" prefWidth="320.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="324.0" minWidth="10.0" prefWidth="318.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="71.0" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="208.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="217.0" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="194.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="206.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="200.0" minHeight="0.0" prefHeight="186.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="231.0" minHeight="7.0" prefHeight="231.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="29.0" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="587.0" text="Uputa za korištenje aplikacije">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Korak 1. Izarada profila">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="113.0" prefWidth="286.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Da bi ste napravili profil potrebno je pritisnuti dugme &quot;Registriraj se&quot; (ukoliko imate profil pređite na korak 3)." />
+                     </children>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Korak 2. Popunjavanje forme">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što pritisnte pomenuto dugme na ekranu bi se trebala pojaviti forma gdje upisujete svoje podatke. Znak da ste pravilno popunili podatke daje zelena boja polja dok nepravilno popunjeni podaci daju kao rezultat crvenu boju. Ukoliko se neko polje crveni a Vi ipak odlučite stisnuti &quot;Ok&quot; dobit ćete upozorenje čime Vam je onemogućeno pravljenje profila." />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="3">
+               <children>
+                  <Label text="Korak 3. Prijava">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što se napravili profil ili ste prijavili na već postojeći odabirom opcije 1 sa slike vezane za korak 1, na ekranu bi se trebao nalaziti prozor gdje možete da odaberete jednu od dvije opcije." />
+                     </children>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="4">
+               <children>
+                  <Label text="Korak 4. Pretraga bilješki">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što ste odabrali jednu od mogućnosti otvara vam se prozor koji nudi određene opcije.  Jedna od opcija je pretraga već postojećih bilješki pomoću menija pod rednim brojevima 1. i 2.  Također možete upisati naziv predmeta ili naziv teme i stisnuti dugme &quot;Pretaži&quot;. Rezultat bilo koje pretrage možete vidjeti u tabeli pod rednim broj 3 dok lista pod rednim brojem 4 sortira sve bilješke na osnovu njihove ukupne ocjene." />
+                     </children>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="5">
+               <children>
+                  <Label text="Korak 5. Pregled bilješke">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Klikom na bilo koju od bilješki otvara Vam se novi prozor na kojem stoje osnovne informacije kao što su :    tekst bilješke ( 1 ), autor ( 2 ), ukupna ocjena ( 3 ), mogućnost da vi dodate ocjenu i komentar ( 4,5 ) te lista već postojećih komentara ( 6 ). Na samom dnu prozora nalazi se dugme koje omogućava da Vi skinete datu bilješku na vaš uređaj a to je dugme &quot;Snimi bilješku&quot;." />
+                     </children>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="6">
+               <children>
+                  <Label text="Korak 6. Dodavanje bilješke">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ukoliko pritisnete dugme &quot;Dodaj bilješku&quot;  sa slike za korak 4 otvara Vam se prozor za dodavanje bilješke . Da bi ste pravilno dodali bilješku potrebno je da napišete naziv bilješke ( 4 ) nakon toga odaberite tip i predmet bilješke ( 2 , 3 ) , napišete tekst bilješke ( 1 ) te na samom kraju odlučite da li će bilješka biti javna ili ne odnosno da li će biti dostupna drugim korisnicima ( 5 ). Ukoliko ste sigurno da tu bilješku želite dodati potebno je pritisnuti dugme &quot;Dodaj bilješku&quot;.Ako ste pravilno napisali sve podatke Vaša bilješka je uspješno dodana. " />
+                     </children>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="7">
+               <children>
+                  <Label text="Korak 7. Profil">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Da biste posjetili profil potrebno je da sa slike pored koraka 4 odabrete opciju Profil  i nakon toga opciju &quot;Posjeti profil&quot;. Na tom prozoru možete da vidite Vaše bilješke te dugme &quot;Uredi&quot; i  &quot;Obrisi&quot; koje omogućavaju brisanje odnosno uređivanje Vaših bilješki. Također postoji i mogućnosti uređivanja profila a to ćete ostvariti tako što odabere dugme &quot;Uredi profil&quot;" />
+                     </children>
+                  </TextFlow>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </VBox>
+            <ImageView fitHeight="206.0" fitWidth="319.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/img1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="212.0" fitWidth="318.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/img2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="184.0" fitWidth="316.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../images/img3.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="163.0" fitWidth="317.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/img4.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="199.0" fitWidth="318.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <image>
+                  <Image url="@../images/img5.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="216.0" fitWidth="319.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <image>
+                  <Image url="@../images/img6.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="188.0" fitWidth="316.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <image>
+                  <Image url="@../images/img7.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </content>
+</ScrollPane>

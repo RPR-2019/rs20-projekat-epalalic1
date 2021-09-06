@@ -49,7 +49,6 @@ public class ucenik2Controller {
     Type type = null;
     @FXML
     public void initialize () {
-        pane.getStyleClass().add("colorOfBackground");
         buttonHelp.getStyleClass().add("colorOfBackgroundofButton");
         chooseTopic.getStyleClass().add("colorOfBackgroundofButton");
         chooseSubject.getStyleClass().add("colorOfBackgroundofButton");
@@ -67,31 +66,7 @@ public class ucenik2Controller {
             resultOfSearch.getItems().setAll(a.allNotesForSchool());
             List<References> lista = a.returnAllReferences();
             Collections.sort(lista);
-            int [] fr = new int[lista.size()];
-            List<References> rez = new ArrayList<>();
-            for (int i = 0;i < lista.size();i++) {
-                int count = 1;
-                int sum = lista.get(i).getRate();
-                for (int j = i+1;j<lista.size();j++) {
-                    if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
-                        count++;
-                        sum = sum + lista.get(i).getRate();
-                        fr[i] = -1;
-
-                    }
-                }
-                if (fr[i] != -1) {
-                    fr[i] = sum/count;
-                    rez.add(lista.get(i));
-                }
-            }
-
-            ObservableList<Notes> alist = FXCollections.observableArrayList();
-            for (References item: rez) {
-                alist.add(item.getNotes());
-            }
-            Collections.reverse(alist);
-            mostWanted.getItems().setAll(alist);
+            mostWanted.setItems(sortByRate(lista));
 
         }
         else if (main2Controller.getInstance().studentBtn.isArmed()) {
@@ -101,31 +76,7 @@ public class ucenik2Controller {
             resultOfSearch.getItems().setAll(a.allNotesForCollege());
             List<References> lista = a.returnAllReferences2();
             Collections.sort(lista);
-            int [] fr = new int[lista.size()];
-            List<References> rez = new ArrayList<>();
-            for (int i = 0;i < lista.size();i++) {
-                int count = 1;
-                int sum = lista.get(i).getRate();
-                for (int j = i+1;j<lista.size();j++) {
-                    if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
-                        count++;
-                        sum = sum + lista.get(i).getRate();
-                        fr[i] = -1;
-
-                    }
-                }
-                if (fr[i] != -1) {
-                    fr[i] = sum/count;
-                    rez.add(lista.get(i));
-                }
-            }
-
-            ObservableList<Notes> alist = FXCollections.observableArrayList();
-            for (References item: rez) {
-                alist.add(item.getNotes());
-            }
-            Collections.reverse(alist);
-            mostWanted.getItems().setAll(alist);
+            mostWanted.setItems(sortByRate(lista));
         }
         else if (profileController.getInstance().goBackButton.isArmed()) {
             if (profileController.getInstance().getUsers().getStatus().getId() == 1) {
@@ -242,6 +193,53 @@ public class ucenik2Controller {
         Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/profile.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) buttonHelp.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    public ObservableList<Notes> sortByRate (List<References> lista) {
+        ObservableList<Notes> a = FXCollections.observableArrayList();
+        int [] fr = new int[lista.size()];
+        List<References> rez = new ArrayList<>();
+        for (int i = 0;i < lista.size();i++) {
+            int count = 1;
+            int sum = lista.get(i).getRate();
+            for (int j = i+1;j<lista.size();j++) {
+                if (lista.get(i).getNotes().getId() == lista.get(j).getNotes().getId()) {
+                    count++;
+                    sum = sum + lista.get(i).getRate();
+                    fr[i] = -1;
+
+                }
+            }
+            if (fr[i] != -1) {
+                fr[i] = sum/count;
+                rez.add(lista.get(i));
+            }
+        }
+
+        ObservableList<Notes> alist = FXCollections.observableArrayList();
+        for (References item: rez) {
+            alist.add(item.getNotes());
+        }
+        Collections.reverse(alist);
+        return  alist;
+    }
+
+    public void helpAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/help2.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Forma");
+        myStage.setScene(new Scene(root, 700, 500));
+        myStage.setResizable(false);
+        myStage.show();
+    }
+
+    public void goBackAction(ActionEvent actionEvent) throws IOException {
+        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/main2.fxml"));
+        Scene scene = new Scene(homePage);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        //stage.hide();
         stage.setScene(scene);
         stage.show();
     }

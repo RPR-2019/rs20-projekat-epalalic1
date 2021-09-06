@@ -3,6 +3,7 @@ package ba.unsa.etf.rs.projekat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -15,6 +16,7 @@ public class NoteController {
     public Spinner<Integer> spinnerFld;
     public TextField commentFld;
     public ListView<References> listOfComments;
+    public GridPane pane;
     Notes notes = null;
 
     @FXML
