@@ -87,7 +87,7 @@ public class newNoteController {
              notes = new Notes(textFld.getText(),nameOfNote.getText(),chooseSubject.getValue(),
                     main2Controller.getInstance().getUser(), selected);
             NotesDAO.getInstance().addNote(notes);
-            System.out.println("Uspjesno ste dodali biljesku");
+           nameOfNote.getScene().getWindow().hide();
         }
     }
 

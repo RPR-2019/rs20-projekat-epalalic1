@@ -1,6 +1,5 @@
 package ba.unsa.etf.rs.projekat;
 
-import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PopupControl;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -19,7 +17,7 @@ import java.io.IOException;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class MainController {
+public class mainController {
     public Button proba;
     public Button buttonId;
     public Label profileLabel;
@@ -31,11 +29,11 @@ public class MainController {
     @FXML
     public Button buttonHelp;
     Users users = null;
-    public static MainController instance;
-    public MainController () {
+    public static mainController instance;
+    public mainController() {
             instance = this;
     }
-    public static MainController  getInstance() {
+    public static mainController getInstance() {
         return instance;
     }
     @FXML
@@ -45,6 +43,7 @@ public class MainController {
         buttonId2.getStyleClass().add("colorOfBackgroundofButton");
         logIn.getStyleClass().add("colorOfBackgroundofButton");
         signIn.getStyleClass().add("colorOfBackgroundofButton");
+        buttonHelp.getStyleClass().add("colorOfBackgroundofButton");
 
     }
 
@@ -68,7 +67,7 @@ public class MainController {
     }
 
     public void signAction(ActionEvent actionEvent) throws IOException {
-        FormaController a = new FormaController();
+        formaController a = new formaController();
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
         loader.setController(a);
@@ -83,7 +82,6 @@ public class MainController {
                 Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/main2.fxml"));
                 Scene scene = new Scene(homePage);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                //stage.hide();
                 stage.setScene(scene);
                 stage.show();
 
@@ -110,4 +108,15 @@ public class MainController {
     public void setUsers(Users users) {
         this.users = users;
     }
+
+    public void helpAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/help2.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage myStage = new Stage();
+        myStage.setTitle("Pomoć");
+        myStage.setScene(new Scene(root, 700, 500));
+        myStage.setResizable(false);
+        myStage.show();
+    }
+
 }

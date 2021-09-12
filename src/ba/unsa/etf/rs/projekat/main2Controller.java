@@ -35,16 +35,26 @@ public class main2Controller {
         studentBtn.getStyleClass().add("colorOfBackgroundofButton");
         ucenikBtn.getStyleClass().add("colorOfBackgroundofButton");
 
-        FormaController a = new FormaController();
-        if (MainController.getInstance().getUsers()!=null) {
-            user = MainController.getInstance().getUsers();
+        formaController a = new formaController();
+        if (mainController.getInstance().getUsers()!=null) {
+            user = mainController.getInstance().getUsers();
         }
-        else if (logInController.getInstance().getUser()!=null) {
+        else if (userController.getInstance() == null && logInController.getInstance().getUser()!=null) {
             user = logInController.getInstance().getUser();
         }
-        else if (a.check()!=null) {
-            user = a.check();
+        else if (userController.getInstance().getUsers()!=null && logInController.getInstance() == null) {
+            user = userController.getInstance().getUsers();
         }
+        else if (userController.getInstance().getUsers() != null) {
+            user = userController.getInstance().getUsers();
+        }
+        else if (logInController.getInstance().getUser()!=null ) {
+            user = logInController.getInstance().getUser();
+        }
+       /* else if (userController.getInstance().getUsers()!=null) {
+            user = userController.getInstance().getUsers();
+        }*/
+
         profileLabel.setText("Dobro dosao/la " + user.getUsername());
     }
 

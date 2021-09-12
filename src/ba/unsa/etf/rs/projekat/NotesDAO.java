@@ -122,11 +122,11 @@ public class NotesDAO {
 
     }
 
-    public void addUser (Users user) {
+    public int  addUser (Users user) {
         ResultSet rs = null;
+        int id = 1;
         try {
             rs = maxIdUser.executeQuery();
-            int id = 1;
             if (rs.next()) {
                 id = rs.getInt(1);
                 if (id == 0) {
@@ -146,7 +146,7 @@ public class NotesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return id;
     }
     public  boolean checkIfUserExists (String username, String password) {
         try {

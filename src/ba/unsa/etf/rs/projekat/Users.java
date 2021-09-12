@@ -5,6 +5,11 @@ public class Users {
     private String name,surname,username,email,password;
     private Status status;
 
+    public Users () {
+
+    }
+
+
     public Users (int id,String name, String surname, String username, String email,String password, Status status) {
         this.id = id;
         this.name = name;

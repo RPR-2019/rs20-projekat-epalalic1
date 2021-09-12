@@ -11,21 +11,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class UcenikController {
-    public static UcenikController instance;
+public class userController {
+    public static userController instance;
     public TextField searchNote;
     public ComboBox<Subjects> chooseSubject;
     public ComboBox<Notes> chooseTopic;
@@ -39,10 +36,10 @@ public class UcenikController {
     public Button button3;
     public ListView<Notes> mostWanted;
 
-    public UcenikController () {
+    public userController() {
         instance = this;
     }
-    public static UcenikController  getInstance() {
+    public static userController getInstance() {
         return instance;
     }
     Users users = null;
@@ -53,7 +50,6 @@ public class UcenikController {
 
     @FXML
     public void initialize () {
-        pane.getStyleClass().add("colorOfBackground");
         button1.getStyleClass().add("colorOfBackgroundofButton");
         button2.getStyleClass().add("colorOfBackgroundofButton");
         button3.getStyleClass().add("colorOfBackgroundofButton");
@@ -63,13 +59,11 @@ public class UcenikController {
         searchNote.getStyleClass().add("colorOfBackgroundofButton");
 
 
-
-        MainController dao = MainController.getInstance();
-        ucenik2Controller dao1 = ucenik2Controller.getInstance();
+        mainController dao = mainController.getInstance();
+        user2Controller dao1 = user2Controller.getInstance();
         NotesDAO a = NotesDAO.getInstance();
          if (dao.buttonId.isArmed() ) {
              Type type = new Type(2,"fakultet");
-             System.out.println("Usli smo");
              chooseSubject.setItems(a.returnSubjectsWithSpecType(type));
              chooseTopic.setItems(a.allNotesForCollege());
              resultOfSearch.getItems().setAll(a.allNotesForCollege());
@@ -132,7 +126,7 @@ public class UcenikController {
 
 
     public void signup(ActionEvent actionEvent) throws IOException {
-        FormaController a = new FormaController();
+        formaController a = new formaController();
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
         loader.setController(a);
@@ -185,6 +179,7 @@ public class UcenikController {
             Subjects subjects = dao.returnSubjectByName(searchNote.getText());
             if (subjects!=null) {
                 a.addAll(dao.returnNotesBySubject(subjects.getId()));
+               //obrisati duplikate
             }
             resultOfSearch.setItems(a);
 
@@ -232,11 +227,19 @@ public class UcenikController {
     }
 
     public void goBackAction(ActionEvent actionEvent) throws IOException {
-        Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+       Parent homePage  =  FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
         Scene scene = new Scene(homePage);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         //stage.hide();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

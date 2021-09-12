@@ -5,6 +5,10 @@ public class Subjects {
     private String name;
     private Type type;
 
+    public Subjects () {
+
+    }
+
     public Subjects (int id, String name, Type type) {
         this.id = id;
         this.name = name;

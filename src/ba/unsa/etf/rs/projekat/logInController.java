@@ -1,6 +1,5 @@
 package ba.unsa.etf.rs.projekat;
 
-import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,11 +46,11 @@ public class logInController {
             Scene scene = new Scene(homePage);
             ((Node) actionEvent.getSource()).getScene().getWindow().hide();
             Stage stage = null;
-            if ((Stage) MainController.getInstance().buttonId.getScene().getWindow()!=null) {
-                stage = (Stage) MainController.getInstance().buttonId.getScene().getWindow();
+            if ((Stage) mainController.getInstance().buttonId.getScene().getWindow()!=null) {
+                stage = (Stage) mainController.getInstance().buttonId.getScene().getWindow();
             }
-            else if ((Stage) UcenikController.getInstance().buttonHelp.getScene().getWindow()!=null) {
-                stage = (Stage) UcenikController.getInstance().buttonHelp.getScene().getWindow();
+            else if ((Stage) userController.getInstance().buttonHelp.getScene().getWindow()!=null) {
+                stage = (Stage) userController.getInstance().buttonHelp.getScene().getWindow();
             }
 
             //Stage stage = (Stage) MainController.getInstance().buttonId.getScene().getWindow();

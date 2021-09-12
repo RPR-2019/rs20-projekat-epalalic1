@@ -5,7 +5,9 @@ public class References implements Comparable{
     private String comment;
     private Notes notes;
 
+    public References () {
 
+    }
     public References (int id, String comment, int rate, Notes notes) {
         this.id = id;
         this.comment = comment;

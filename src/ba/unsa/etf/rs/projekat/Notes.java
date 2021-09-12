@@ -9,7 +9,9 @@ public class Notes {
     private Users users;
     private References references;
 
+   public Notes () {
 
+   }
     public  Notes (int id, String text, String name, Subjects subjects, Users users,int sort) {
         this.id = id;
         this.text = text;

@@ -2,14 +2,17 @@ package ba.unsa.etf.rs.projekat;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class FormaController {
+public class formaController {
     public GridPane pane;
     public TextField nameField;
     public TextField surnameField;
@@ -18,11 +21,18 @@ public class FormaController {
     public PasswordField passwordField;
     public PasswordField repeatField;
     public ChoiceBox<String> statusField;
-    private boolean name = false,surname = false,username = false,email = false, password = false,rpassword = false;
+    private boolean name = false,surname = false,username = false,email = false, password = false,rpassword = false, status = false;
     private Users users = null;
     public Button signInBtn;
     public Button outBtn;
     public Users user1 = null;
+    public static formaController instance;
+    public formaController() {
+        instance = this;
+    }
+    public static formaController getInstance() {
+        return instance;
+    }
 
 
     @FXML
@@ -41,6 +51,7 @@ public class FormaController {
             email = true;
             password = true;
             rpassword = true;
+            status  = true;
 
         }
         pane.getStyleClass().add("colorOfBackground");
@@ -120,6 +131,14 @@ public class FormaController {
                 rpassword = true;
             }
         });
+        statusField.getSelectionModel().selectedItemProperty().addListener((obs,staro,novo) -> {
+            if (statusField.getValue() != null) {
+                status = true;
+            }
+            else {
+                status = false;
+            }
+        });
 
 
     }
@@ -173,19 +192,22 @@ public class FormaController {
 
 
     public void addUserAction(ActionEvent actionEvent) throws IOException {
-            if (name && surname && username && email && password && rpassword && user1==null) {
+            if (status && name && surname && username && email && password && rpassword && user1==null) {
                 NotesDAO a = NotesDAO.getInstance();
                 Status status = a.returnStatus(statusField.getValue());
                 users = new Users(nameField.getText(),surnameField.getText(),usernameField.getText(),
                         emailField.getText(),passwordField.getText(),status);
-                a.addUser(users);
+                //a.addUser(users);
+                int id = a.addUser(users);
+                users.setId(id);
+                //dodati id na ovog usera
                 Node n = (Node) actionEvent.getSource();
                 Stage stage = (Stage) n.getScene().getWindow();
                 stage.close();
 
 
             }
-            else if (name && surname && username && email && password && rpassword ) {
+            else if (status && name && surname && username && email && password && rpassword ) {
                 NotesDAO a = NotesDAO.getInstance();
                 Status status = a.returnStatus(statusField.getValue());
                 users = new Users(user1.getId(),nameField.getText(),surnameField.getText(),usernameField.getText(),
@@ -217,5 +239,13 @@ public class FormaController {
 
     public void setUser1(Users user1) {
         this.user1 = user1;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class NoteController {
+public class noteController {
     public TextArea textFld;
     public TextField authorFld;
     public TextField rateFld;
@@ -24,11 +24,11 @@ public class NoteController {
        SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,5,0);
        spinnerFld.setValueFactory(valueFactory);
         NotesDAO dao = NotesDAO.getInstance();
-        if (ucenik2Controller.getInstance().notes !=null ){
-            notes = ucenik2Controller.getInstance().notes;
+        if (user2Controller.getInstance().notes !=null ){
+            notes = user2Controller.getInstance().notes;
         }
         else {
-            notes = UcenikController.getInstance().notes;
+            notes = userController.getInstance().notes;
         }
 
         textFld.setText(notes.getText());
@@ -50,7 +50,6 @@ public class NoteController {
 
     public void addRateAndComment(ActionEvent actionEvent) {
         References references = null;
-        System.out.println(notes.getUsers().getId() + " " + main2Controller.getInstance().getUser().getId() );
         NotesDAO dao = NotesDAO.getInstance();
         if (spinnerFld.getValue() == 0 || commentFld.getText().isEmpty() ||
         notes.getUsers().getId()==main2Controller.getInstance().getUser().getId()) {

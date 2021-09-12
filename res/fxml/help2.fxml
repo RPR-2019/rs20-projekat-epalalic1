@@ -42,7 +42,7 @@
             </Label>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="Korak 1. Izarada profila">
+                  <Label text="Korak 1. Izrada profila">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
@@ -64,7 +64,7 @@
                      </font></Label>
                   <TextFlow prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što pritisnte pomenuto dugme na ekranu bi se trebala pojaviti forma gdje upisujete svoje podatke. Znak da ste pravilno popunili podatke daje zelena boja polja dok nepravilno popunjeni podaci daju kao rezultat crvenu boju. Ukoliko se neko polje crveni a Vi ipak odlučite stisnuti &quot;Ok&quot; dobit ćete upozorenje čime Vam je onemogućeno pravljenje profila." />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što pritisnete pomenuto dugme na ekranu bi se trebala pojaviti forma gdje upisujete svoje podatke. Znak da ste pravilno popunili podatke daje zelena boja polja dok nepravilno popunjeni podaci daju kao rezultat crvenu boju. Ukoliko se neko polje crveni a Vi ipak odlučite stisnuti &quot;Ok&quot; dobit ćete upozorenje čime Vam je onemogućeno pravljenje profila." />
                      </children>
                      <VBox.margin>
                         <Insets top="5.0" />
@@ -99,7 +99,7 @@
                      </font></Label>
                   <TextFlow prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što ste odabrali jednu od mogućnosti otvara vam se prozor koji nudi određene opcije.  Jedna od opcija je pretraga već postojećih bilješki pomoću menija pod rednim brojevima 1. i 2.  Također možete upisati naziv predmeta ili naziv teme i stisnuti dugme &quot;Pretaži&quot;. Rezultat bilo koje pretrage možete vidjeti u tabeli pod rednim broj 3 dok lista pod rednim brojem 4 sortira sve bilješke na osnovu njihove ukupne ocjene." />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nakon što ste odabrali jednu od mogućnosti otvara vam se prozor koji nudi određene opcije.  Jedna od opcija je pretraga već postojećih bilješki pomoću menija pod rednim brojevima 1. i 2.  Također možete upisati naziv predmeta ili naziv teme i stisnuti dugme &quot;Pretraži&quot;. Rezultat bilo koje pretrage možete vidjeti u tabeli pod rednim broj 3 dok lista pod rednim brojem 4 sortira sve bilješke na osnovu njihove ukupne ocjene." />
                      </children>
                   </TextFlow>
                </children>
@@ -147,7 +147,7 @@
                      </font></Label>
                   <TextFlow prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Da biste posjetili profil potrebno je da sa slike pored koraka 4 odabrete opciju Profil  i nakon toga opciju &quot;Posjeti profil&quot;. Na tom prozoru možete da vidite Vaše bilješke te dugme &quot;Uredi&quot; i  &quot;Obrisi&quot; koje omogućavaju brisanje odnosno uređivanje Vaših bilješki. Također postoji i mogućnosti uređivanja profila a to ćete ostvariti tako što odabere dugme &quot;Uredi profil&quot;" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Da biste posjetili profil potrebno je da sa slike pored koraka 4 odabrete opciju Profil  i nakon toga opciju &quot;Posjeti profil&quot;. Na tom prozoru možete da vidite Vaše bilješke te dugme &quot;Uredi&quot; i  &quot;Obrisi&quot; koje omogućavaju uređivanje odnosno brisanje Vaših bilješki. Također postoji i mogućnosti uređivanja profila a to ćete ostvariti tako što odabere dugme &quot;Uredi profil&quot;" />
                      </children>
                   </TextFlow>
                </children>

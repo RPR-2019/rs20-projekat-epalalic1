@@ -17,7 +17,7 @@ public class note2Controller {
     @FXML
     public void initialize () {
         NotesDAO dao = NotesDAO.getInstance();
-        notes = UcenikController.getInstance().notes;
+        notes = userController.getInstance().notes;
         textFld.setText(notes.getText());
         listOfComments.getItems().setAll(dao.returnAllReferences(notes.getId()));
         int velicina = dao.returnAllReferences(notes.getId()).size();

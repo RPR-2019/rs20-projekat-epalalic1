@@ -15,13 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class ucenik2Controller {
+public class user2Controller {
     public Button buttonNote;
     public TextField searchNote;
     public Button buttonHelp;
@@ -39,11 +37,11 @@ public class ucenik2Controller {
     private boolean subject = false, topic = false,tekstFld = false;
     private int brojac = 0;
     Notes notes = null;
-    public static ucenik2Controller instance;
-    public ucenik2Controller () {
+    public static user2Controller instance;
+    public user2Controller() {
         instance = this;
     }
-    public static ucenik2Controller getInstance() {
+    public static user2Controller getInstance() {
         return instance;
     }
     Type type = null;
@@ -136,13 +134,18 @@ public class ucenik2Controller {
         Stage stage = (Stage) buttonHelp.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+        logInController.getInstance().setUser(null);
+        /*if (logInController.getInstance()!=null) {
+            logInController.getInstance().setUser(null);
+        }*/
+
     }
 
     public void addNoteAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newNote.fxml"));
         Parent root = (Parent) loader.load();
         Stage myStage = new Stage();
-        myStage.setTitle("Forma");
+        myStage.setTitle("Nova bilješka");
         myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         myStage.showAndWait();
         if (!myStage.isShowing()) {
@@ -151,6 +154,7 @@ public class ucenik2Controller {
                 newNoteController.getInstance().getNotes().getSubjects().getType().getId() == type.getId() ) {
                     resultOfSearch.getItems().add(newNoteController.getInstance().getNotes());
                     chooseTopic.getItems().add(newNoteController.getInstance().getNotes());
+
                 }
             }
         }

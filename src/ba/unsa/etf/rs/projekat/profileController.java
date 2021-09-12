@@ -10,12 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PopupControl;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.AnnotatedWildcardType;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -39,7 +37,7 @@ public class profileController {
     private Type type = null;
     @FXML
     public void initialize () {
-        type = ucenik2Controller.getInstance().type;
+        type = user2Controller.getInstance().type;
         NotesDAO dao1 = NotesDAO.getInstance();
         main2Controller dao = main2Controller.getInstance();
         users = dao.getUser();
@@ -89,13 +87,13 @@ public class profileController {
 
     public void editProfile(ActionEvent actionEvent) throws IOException {
         NotesDAO dao = NotesDAO.getInstance();
-        FormaController a = new FormaController();
+        formaController a = new formaController();
         a.setUser1(users);
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forma.fxml"));
         loader.setController(a);
         Parent root = loader.load();
-        myStage.setTitle("Novi prozor");
+        myStage.setTitle("Uređivanje profila");
         myStage.setScene(new Scene(root, PopupControl.USE_COMPUTED_SIZE, PopupControl.USE_COMPUTED_SIZE));
         myStage.setResizable(false);
         myStage.showAndWait();
