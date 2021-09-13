@@ -57,4 +57,6 @@ INSERT INTO "subjects" VALUES (3,'IM1',2);
 INSERT INTO "subjects" VALUES (4,'Bosanski jezik',1);
 INSERT INTO "subjects" VALUES (5,'Fizika',1);
 INSERT INTO "subjects" VALUES (6,'LAG',2);
+INSERT INTO "subjects" VALUES (7,'VIS',2);
+INSERT INTO "subjects" VALUES (8,'Historija',1);
 COMMIT;

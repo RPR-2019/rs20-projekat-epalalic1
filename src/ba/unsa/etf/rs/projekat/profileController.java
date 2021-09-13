@@ -6,14 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PopupControl;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -71,10 +69,24 @@ public class profileController {
     }
 
     public void deleteNote(ActionEvent actionEvent) {
-        NotesDAO dao = NotesDAO.getInstance();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Brisanje bilješke");
+        alert.setHeaderText("Pritiskom na dugme OK  brišete bilješku");
+        alert.setContentText("Da li ste sigurno da želite obrisati bilješku");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            NotesDAO dao = NotesDAO.getInstance();
+            dao.deleteNote(notes.getId());
+            dao.deleteReferenes(notes.getId());
+            listOfNotes.getItems().remove(notes);
+        } else {
+            alert.close();
+        }
+        /*NotesDAO dao = NotesDAO.getInstance();
         dao.deleteNote(notes.getId());
         dao.deleteReferenes(notes.getId());
-        listOfNotes.getItems().remove(notes);
+        listOfNotes.getItems().remove(notes);*/
     }
 
     public Users getUsers() {
