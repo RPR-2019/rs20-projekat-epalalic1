@@ -134,10 +134,9 @@ public class user2Controller {
         Stage stage = (Stage) buttonHelp.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-        logInController.getInstance().setUser(null);
-        /*if (logInController.getInstance()!=null) {
+        if (logInController.getInstance()!=null) {
             logInController.getInstance().setUser(null);
-        }*/
+        }
 
     }
 
